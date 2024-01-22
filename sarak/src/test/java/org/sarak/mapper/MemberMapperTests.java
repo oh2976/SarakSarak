@@ -1,0 +1,52 @@
+package org.sarak.mapper;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.sarak.domain.AuthVO;
+import org.sarak.domain.MemberVO;
+import org.sarak.mapper.MemberMapper;
+import org.sarak.mapper.MemberMapperTests;
+
+import lombok.Setter;
+import lombok.extern.log4j.Log4j;
+
+@RunWith(SpringRunner.class)
+@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
+@Log4j
+public class MemberMapperTests {
+
+	@Setter(onMethod_ = @Autowired)
+	private MemberMapper mapper;
+	
+	@Test
+	public void testRegister() throws Exception {
+		MemberVO member = new MemberVO();
+		member.setMid("test");
+		member.setMpw("test");
+		member.setMname("test");
+		member.setPhone("01000000000");
+		member.setEmail("test@gmail.com");
+		member.setPostcode("00000");
+		member.setAddress("test");
+		
+		AuthVO auth = new AuthVO();
+		auth.setMid("test");
+		auth.setAuth("ROLE_USER");
+		
+		mapper.register(member);
+		mapper.insertAuth(auth);
+		
+		log.info("register : " + member);
+		
+	}
+	
+//	@Test
+//	public void testRead() {
+//		MemberVO vo = mapper.read("test");
+//		log.info(vo);
+//		
+//	}
+}
