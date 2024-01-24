@@ -17,4 +17,15 @@ public class MemberVO {
 	private Date mregdate;
 	
 	private List<AuthVO> authList;
+	
+	private AuthVO auth;
+
+    public AuthVO getAuth() {
+        return auth;
+    }
+
+    public void setAuth(AuthVO auth) {
+        this.auth = auth;
+    }
+
 }

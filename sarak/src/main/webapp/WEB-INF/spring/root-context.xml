@@ -48,8 +48,9 @@
 	<context:annotation-config></context:annotation-config>
 	
 	<!-- <mybatis-spring:scan base-package="org.sarak.mapper"/>  -->
-	<mybatis-spring:scan base-package="org.sarak.mapper, org.sarak.domain" />
+	<mybatis-spring:scan base-package="org.sarak.mapper" />
 	<context:component-scan base-package="org.sarak.service"></context:component-scan>
+	
 	
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 </beans>

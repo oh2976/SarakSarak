@@ -40,4 +40,42 @@
             insert into tbl_member_auth (mid, auth)
             values (#{mid}, #{auth})
     </insert>
+   
+   <select id="getList" resultMap="memberMap">
+   		SELECT 
+			mem.mid, mpw, mname, phone, email, postcode, address, mregdate, auth
+		FROM
+			tbl_member mem LEFT OUTER JOIN tbl_member_auth auth on mem.mid = auth.mid
+   </select>
+   
+   <delete id="delete">
+   		delete from tbl_member where mid = #{mid}
+   </delete>
+   
+    <delete id="deleteAuth">
+   		delete from tbl_member_auth where mid = #{mid}
+   </delete>
+   
+   <!-- 회원정보 수정은 아직 안 됨. 권한 수정만 가능 mpw = #{mpw}, -->
+   <update id="update">
+   		update tbl_member
+   		set 
+	   		mname = #{mname}, 
+	   		phone = #{phone}, 
+	   		email = #{email}, 
+	   		postcode = #{postcode}, 
+	   		address = #{address}
+   		where mid = #{mid, jdbcType=VARCHAR}
+   </update>
+   
+   <update id="updateAuth">
+   		update tbl_member_auth
+   		set auth = #{auth, jdbcType=VARCHAR}
+   		where mid = #{mid, jdbcType=VARCHAR}
+   </update>
+
+    
+    <select id = "getListWithPaging" resultType="org.sarak.domain.MemberVO">
+    	
+    </select>
 </mapper>

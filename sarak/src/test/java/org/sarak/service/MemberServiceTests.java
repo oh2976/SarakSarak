@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.sarak.domain.AuthVO;
 import org.sarak.domain.MemberVO;
 import org.sarak.mapper.MemberMapper;
 import org.sarak.mapper.MemberMapperTests;
@@ -43,5 +44,31 @@ public class MemberServiceTests {
 //		memberService.registerMember(member, null);
 		
 		log.info("register : " + member);
+	}
+	
+	@Test
+	public void testGetList() {
+		memberService.getList().forEach(member -> log.info(member));
+	}
+	
+	@Test
+	public void testGet() {
+		log.info(memberService.get("aa"));
+	}
+	
+	@Test
+	public void testDelete() {
+//		log.info("REMOVE RESULT :" + memberService.removeMember("cc"));
+	}
+	
+	@Test
+	public void testUpdate() {
+		MemberVO member = memberService.get("bb");
+		if(member == null) {
+			return;
+		}
+		
+		member.setMname("bb2");
+		log.info("MODIFY RESULT : " + memberService.modifyMember(member));
 	}
 }

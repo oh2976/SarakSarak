@@ -7,7 +7,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.sarak.domain.AuthVO;
 import org.sarak.domain.MemberVO;
-import org.sarak.mapper.MemberMapper;
 import org.sarak.mapper.MemberMapperTests;
 
 import lombok.Setter;
@@ -36,8 +35,8 @@ public class MemberMapperTests {
 		auth.setMid("test");
 		auth.setAuth("ROLE_USER");
 		
-		mapper.register(member);
-		mapper.insertAuth(auth);
+//		mapper.register(member);
+//		mapper.insertAuth(auth);
 		
 		log.info("register : " + member);
 		
@@ -49,4 +48,35 @@ public class MemberMapperTests {
 //		log.info(vo);
 //		
 //	}
+	
+	@Test
+	public void testGetList() {
+		mapper.getList().forEach(member -> log.info("getList : " + member));
+	}
+	
+	@Test
+	public void testDelete() {
+//		log.info("DELETE COUNT : " + mapper.deleteAuth("test"));
+//		log.info("DELETE COUNT : " + mapper.delete("cc"));
+	}
+	
+	@Test
+	public void testUpdate() {
+		MemberVO member = new MemberVO();
+		member.setMid("cc");
+		member.setMpw("cc");
+		member.setPhone("cc");
+		member.setPostcode("cc");
+		member.setEmail("cc");
+		member.setMname("cc3");
+		member.setAddress("cctest");
+		AuthVO auth = new AuthVO();
+		auth.setMid("cc");
+		auth.setAuth("ROLE_ADMIN");
+		
+		
+//		int count = mapper.update(member);
+//		int countAuth = mapper.updateAuth(auth);
+//		log.info("UPDATE COUNT : " + countAuth);
+	}
 }
