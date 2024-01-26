@@ -1,11 +1,14 @@
 package org.sarak.mapper;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.sarak.domain.AuthVO;
+import org.sarak.domain.Criteria;
 import org.sarak.domain.MemberVO;
 import org.sarak.mapper.MemberMapperTests;
 
@@ -78,5 +81,12 @@ public class MemberMapperTests {
 //		int count = mapper.update(member);
 //		int countAuth = mapper.updateAuth(auth);
 //		log.info("UPDATE COUNT : " + countAuth);
+	}
+	
+	@Test
+	public void testPaging() {
+		Criteria cri = new Criteria();
+		List<MemberVO> list = mapper.getListWithPaging(cri);
+		list.forEach(member -> log.info(member));
 	}
 }

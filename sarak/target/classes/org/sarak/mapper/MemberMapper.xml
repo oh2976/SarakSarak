@@ -75,7 +75,19 @@
    </update>
 
     
-    <select id = "getListWithPaging" resultType="org.sarak.domain.MemberVO">
-    	
+    <select id = "getListWithPaging" resultMap="memberMap">
+    	<![CDATA[
+    	 	SELECT 
+				mid, mpw, mname, phone, email, postcode, address, mregdate, auth
+			FROM
+			(
+				select /*+INDEX_DESC(tbl_member pk_member) */
+					rownum rn, mem.mid, mpw, mname, phone, email, postcode, address, mregdate, auth
+				from 
+					tbl_member mem LEFT OUTER JOIN tbl_member_auth auth on mem.mid = auth.mid
+				where rownum <= 20
+			)
+			where rn > 10
+    	]]>
     </select>
 </mapper>
