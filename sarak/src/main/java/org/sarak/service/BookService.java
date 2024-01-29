@@ -34,4 +34,6 @@ public interface BookService {    // 비즈니스 로직
 	
 	public List<BookAttachVO> getAttachList(int bid);
 	
+	public List<BookAttachVO> getMainImgAttachList(int bid);
+	
 }

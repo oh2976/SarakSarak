@@ -1,5 +1,6 @@
 package org.sarak.domain;
 
+import java.util.Date;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -15,9 +16,10 @@ public class BookVO {
 	private String bname;
 	private int bprice;
 	private String isbn;
-	private String pubdate;
+	private Date pubdate;
 	private String publisher;
 	private int authorid;
+	private String authorname;
 	private String summary;
 	private String contents;
 	

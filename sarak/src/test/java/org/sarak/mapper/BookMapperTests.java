@@ -105,7 +105,7 @@ public class BookMapperTests {
 //		bestBookList.forEach(book -> log.info(book.getBid()));
 		
 //		bookList.forEach(book -> log.info(book.getBid()));
-		newBookList.forEach(book -> log.info(book.getBid()));
+//		newBookList.forEach(book -> log.info(book.getBid()));
 		
 	}
 	
@@ -122,17 +122,12 @@ public class BookMapperTests {
 //		list.forEach(book -> log.info(book));
 	}
 	
-	@Test
-	public void testBestBookRead() {
-		BookVO vo = bookMapper.bestBookRead(1);
-//		log.info(vo);
-	}
 	
 	@Test
 	public void testNewBookList() {
 		List<BookVO> list = bookMapper.newBookList();
 		log.info("testNewBookList()....");
-//		list.forEach(book -> log.info(book));
+		list.forEach(book -> log.info(book));
 	}
 	
 }

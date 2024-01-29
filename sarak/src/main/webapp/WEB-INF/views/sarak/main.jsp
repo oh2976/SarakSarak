@@ -1,9 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
-<%@include file="../includes/header.jsp"%>
 
 
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<link rel="stylesheet" href="../../resources/dist/css/allBook.css">
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+	
+	<script type="text/javascript">
+
+		$(document).ready(function() {
+			
+			var actionForm = $("#actionForm");
+			
+			$(".move").on("click", function(e) {
+				
+				e.preventDefault();
+				
+				actionForm.append("<input type='hidden' name='bid' value='" + $(this).attr("href") + "'>");
+				
+				actionForm.attr("action", "/sarak/bookDetail");
+				
+				actionForm.submit();
+				
+				history.replaceState({ page: "bookDetail", bid: bid }, "Book Detail", "/sarak/bookDetail?bid=" + bid);
+				
+			});
+			
+		});
+	</script>
+	
+</head>
+
+<div class="sarakMainWrapper">
+	<%@include file="../includes/header.jsp"%>
+	
 	<section class="container">
 		<input id="select1" name="radioBanner" type="radio" class="banner_input1" checked="" />
         <label for="select1" class="label_btn1">1</label>
@@ -38,9 +75,11 @@
 				<c:forEach items="${bestBookList}" var="best" varStatus="status">
 					<c:if test="${status.index < 5}">
 						<c:forEach items="${best.attachList}" var="attach" >
+						   	<a class='move' href='<c:out value="${best.bid}"/>'>
 						   	<li>
 						   	<img src="<c:url value='/sarak/display'/>?filename=<c:out value='${attach.uploadpath}/${attach.filename}'/>" alt="${best.bname}"/>
 						   	</li>
+						   	</a>
 						</c:forEach>
 					</c:if>
 				</c:forEach>
@@ -56,16 +95,24 @@
 			<c:forEach items="${newBookList}" var="newBook" varStatus="status">
 				<c:if test="${status.index < 5}">
 					<c:forEach items="${newBook.attachList}" var="attach">
+				    	<a class='move' href='<c:out value="${newBook.bid}"/>'>
 				    	<li>
 				    	<img src="<c:url value='/sarak/display'/>?filename=<c:out value='${attach.uploadpath}/${attach.filename}'/>" alt="${newBook.bname}"/>
-						</li>	
+						</li>
+						</a>	
 					</c:forEach>
 				</c:if>
 			</c:forEach>
 		</ul>
 	</div>
+	
+							<form id='actionForm' action="/sarak/allBookList" method='get'>
+								<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+								<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+							</form>
+							<!-- 페이징 영역 끝 -->
 	</section>
-
-
-
 	<%@include file="../includes/footer.jsp"%>
+	
+</div>
+

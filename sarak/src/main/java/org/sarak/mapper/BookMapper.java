@@ -3,6 +3,7 @@ package org.sarak.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.sarak.domain.BookAttachVO;
 import org.sarak.domain.BookVO;
 import org.sarak.domain.Criteria;
 
@@ -41,11 +42,11 @@ public interface BookMapper {    // 데이터베이스에 접근하는 메서드
 	
 	public List<BookVO> bestBookList();
 	
-	public BookVO bestBookRead(int bid);
-	
 	public List<BookVO> newBookList();
 	
-	public BookVO newBookRead(int bid);
+	public List<BookAttachVO> getMainImgAttachList(int bid);
+
+	public String getAuthornameById(int authorid);
 	
 	
 	

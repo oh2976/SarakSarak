@@ -29,7 +29,14 @@ public class BookServiceImpl implements BookService {    // BookService 인터�
 	@Override
 	public BookVO get(int bid) {
 		
-		return null;
+		BookVO book = bookMapper.read(bid);
+
+	    if (book != null) {
+	        String authorname = bookMapper.getAuthornameById(book.getAuthorid());
+	        book.setAuthorname(authorname);
+	    }
+
+	    return book;
 		
 	}
 
@@ -52,8 +59,21 @@ public class BookServiceImpl implements BookService {    // BookService 인터�
 		
 		log.info("###### all book list with criteria ######" + cri);
 		
-		// 페이징 조건을 이용하여 전체 도서 목록 가져옴
-		return bookMapper.bookListWithPaging(cri);
+		// 매퍼메서 책 목록 가져옴
+		List<BookVO> bookList = bookMapper.bookListWithPaging(cri);
+
+		// 각 책에 대해 작가 이름 설정
+		for (BookVO book : bookList) {
+
+			String authorname = bookMapper.getAuthornameById(book.getAuthorid());
+
+			log.info("작가 이름 : " + book.getBid() + authorname);
+
+			book.setAuthorname(authorname);
+
+		}
+
+		return bookList;
 		
 	}
 
@@ -118,6 +138,13 @@ public class BookServiceImpl implements BookService {    // BookService 인터�
 		
 		// 베스트 전체 도서 수 가져옴 (페이징)
 		return bookMapper.getNewTotalCount(cri);
+	}
+
+	@Override
+	public List<BookAttachVO> getMainImgAttachList(int bid) {
+
+		return bookMapper.getMainImgAttachList(bid);
+
 	}
 
 

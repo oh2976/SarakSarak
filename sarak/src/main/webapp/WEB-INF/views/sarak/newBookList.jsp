@@ -2,7 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@include file="../includes/header.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<link rel="stylesheet" href="../../resources/dist/css/allBook.css">
+<link rel="stylesheet" href="../../resources/dist/css/bestBook.css">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,11 +19,9 @@
 
     <!-- Custom Fonts -->
     <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="../../resources/dist/css/newBook.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    
-    
+	
 	 <script type="text/javascript">
 	 
 		$(document).ready(function() {
@@ -35,10 +36,25 @@
 					console.log('click');
 					
 					console.log($(this).attr("href"));
+					
 	
 					actionForm.find("input[name = 'pageNum']").val($(this).attr("href"));
 					
-					actionForm.submit(); 
+					actionForm.submit();
+					
+				});
+				
+				$(".move").on("click", function(e) {
+					
+					e.preventDefault();
+					
+					actionForm.append("<input type='hidden' name='bid' value='" + $(this).attr("href") + "'>");
+					
+					actionForm.attr("action", "/sarak/bookDetail");
+					
+					actionForm.submit();
+					
+					history.replaceState({ page: "bookDetail", bid: bid }, "Book Detail", "/sarak/bookDetail?bid=" + bid);
 					
 				});
 				
@@ -47,58 +63,63 @@
 
     </head>
     
-					<div class="newBookWapper">
-					<h2 class="title">신간 도서</h2>
-						<div class="newBookProduct">
-						
+    	<!-- 전체 페이지 영역 시작 -->
+		<div class="sarakMainWrapper">
+			<!-- 헤더 영역 시작 -->
+			<%@ include file="../includes/header.jsp" %>
+			<!-- 헤더 영역 끝 -->
+			
+			<!-- 미들 영역 시작 -->
+			<div class="sarakMiddleArea">
+				<!-- 전체도서 목록 영역 -->
+				<div class="contents_inner">
+					<div class="allbook_wrap">
+					<h2 class="title_heading">신간도서</h2>
+						<div class="allbook_prod">
 							<table>
-								<tr>
-									<td>번호</td>
-									<td>표지</td>
-									<td>제목</td>
-									<td>가격</td>
-									<td>출간일</td>
-									<td>출판사</td>
-									<td>작가번호</td>
-								</tr>
-								
 								<c:forEach var="newBook" items="${newBookList}">
 									<tr>
-										<td>${newBook.bid}</td>
+										<td class="num">
+											<div class="bid">${newBook.bid}</div>
+										</td>
 										<td class="mainimage">
 											<c:forEach items="${newBook.attachList}" var="attach">
-										    	<li>
-										    	<img src="<c:url value='/sarak/display'/>?filename=<c:out value='${attach.uploadpath}/${attach.filename}'/>" alt="${newBook.bname}"/>
-												</li>	
+												<c:if test="${fn:contains(fn:toLowerCase(fn:substringBefore(attach.filename, '.')), 'mainimg')}">
+											    	<a href="#"><img src="<c:url value='/sarak/display'/>?filename=<c:out value='${attach.uploadpath}/${attach.filename}'/>" alt="${bestBook.bname}"/></a>
+												</c:if>
 											</c:forEach>
 										</td>
-										<td>
-											<div style="display: flex; align-items: center;">
-												<div style="flex: 1;">
-													<strong>${newBook.bname}</strong>
-												</div>
+										<td class="detail">
+											<div class="bname">
+												<a class='move' href='<c:out value="${newBook.bid}"/>'>
+													<strong><c:out value="${newBook.bname}"/></strong>
+												</a>
+											</div>
+											<div class="etc">
+												${newBook.authorname} 지음 | ${newBook.publisher} | <fmt:formatDate value="${newBook.pubdate}" pattern="yyyy.MM.dd"/>
+											</div><br>
+											<div class="bprice">
+												<strong><fmt:formatNumber value="${newBook.bprice}" pattern="#,###원"/></strong>
+											</div><br>
+											<div class="summary">
+												${fn:replace(fn:substring(newBook.summary, 0, 100), '\\n', ' ')}${fn:length(newBook.summary) > 100 ? '...' : ''}
 											</div>
 										</td>
-										<td>${newBook.bprice}</td>
-										<td>${newBook.isbn}</td>
-										<td>${newBook.pubdate}</td>
-										<td>${newBook.publisher}</td>
-										<td>${newBook.authorid}</td>
+										<td class="btn-group">
+											<div class="cartbtn">
+												<input type="button" class="cart" name="btn" value="장바구니"></button>
+											</div>
+											<div class="buynowbtn">
+												<input type="button" class="buynow" name="btn" value="바로구매"></button>
+											</div>
+										</td>
 									</tr>
 									
-									<!-- 줄거리 -->
+									<!-- 구분 선 -->
 									<tr>
-										<td></td>
-										<td colspan="7">
-											<div class="summary">
-												<strong>줄거리:</strong>
-												${fn:substring(newBook.summary, 0, 30)}${fn:length(newBook.summary) > 30 ? '...' : ''}
-											</div>
-										</td>
+										<td colspan="8" class="separator"></td>
 									</tr>
-
 								</c:forEach>
-								
 							</table>
 							
 							<!-- 페이징 영역 시작 -->
@@ -106,7 +127,6 @@
 								<ul class="pagination">
 									<c:if test="${pageMaker.prev}">
 										<li class="paginate_button previous"><a href="${pageMaker.startPage - 1}">이전</a></li>
-										
 									</c:if>
 									
 									<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
@@ -120,17 +140,22 @@
 									</c:if>
 								</ul>
 							</div>
-							
-							<form id='actionForm' action="/sarak/newBookList" method='get'>
+							<form id='actionForm' action="/sarak/bestBookList" method='get'>
 								<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 								<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
 							</form>
-							
-							
+							<!-- 페이징 영역 끝 -->
 						</div>
-					</div>	
-
-
-
-
-<%@include file="../includes/footer.jsp"%>
+					</div>
+				</div>
+				
+			</div>
+			<!-- 미들 영역 끝 -->
+			
+			<!-- footer 영역 시작 -->
+			<%@ include file="../includes/footer.jsp" %>
+			<!-- footer 영역 끝 -->
+			
+		</div>
+		<!-- 전체 페이지 영역 끝 -->
+    

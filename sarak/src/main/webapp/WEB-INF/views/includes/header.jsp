@@ -13,8 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>사락사락 관리자 계정</title>
-	<title>빛바랜</title>
+	<title>사락사락</title>
 
     <!-- Custom CSS -->
     <link href="/resources/dist/css/main.css" type="text/css" rel="stylesheet">

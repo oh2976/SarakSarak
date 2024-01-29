@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,6 +47,13 @@ public class BookController {
 		model.addAttribute("newBookList", bookService.newBookList(cri));
 		
 		log.info("newBookList" + bookService.newBookList(cri));
+		
+		int total = bookService.getTotal(cri);
+		
+		log.info("total: " + total);
+		
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		
 		
 
 	}
@@ -135,10 +143,27 @@ public class BookController {
 		return "allBookList";
 		
 	}
+	@GetMapping("/bookDetail")
+	public String bookDetail(@RequestParam("bid") int bid, @ModelAttribute("cri") Criteria cri, Model model) {
+		
+		log.info("###### 도서 상세 페이지 진입 ######");
+		
+		BookVO book = bookService.get(bid);
+		
+		List<BookAttachVO> attachList = bookService.getAttachList(bid);
+		
+		model.addAttribute("attachList", attachList);
+		
+		model.addAttribute("book", book);
+		
+		return "bookDetail";
+		
+	}
 	
 	@GetMapping(value = "/getAttachList")
 	@ResponseBody
-	public ResponseEntity<List<BookAttachVO>> getAttachList(@RequestParam(name = "bid", defaultValue = "0") int bid) {
+	public ResponseEntity<List<BookAttachVO>> getAttachList(@RequestParam(name = "bid", defaultValue = "0") int bid,
+			@RequestParam(name = "keyword", defaultValue = "") String keyword) {
 	
 		if (bid <= 0) {
 			
@@ -147,7 +172,19 @@ public class BookController {
 		
 		log.info("getAttachList " + bid);
 		
-		return new ResponseEntity<>(bookService.getAttachList(bid), HttpStatus.OK);
+		List<BookAttachVO> attachList;
+		
+		if ("mainimg".equals(keyword)) {
+			
+			attachList = bookService.getMainImgAttachList(bid);
+			
+		} else {
+			
+			attachList = bookService.getAttachList(bid);
+			
+		}
+		
+		return new ResponseEntity<>(attachList, HttpStatus.OK);
 	
 	}
 	
@@ -176,6 +213,4 @@ public class BookController {
 		return result;
 		
 	}
-	
-
 }

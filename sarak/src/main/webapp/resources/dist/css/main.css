@@ -291,7 +291,7 @@ section div.newProductWapper{
 	postion: absolute;
 	margin: 0 auto;
 	width: 85%;
-	margin-top: 24%;
+	margin-top: 30%;
 }
 
 section .ProductNav {
@@ -327,11 +327,11 @@ section .productItem  {
 section li{
 	height: 10px;
 	list-style: none;
-	padding-right: 98px;
+	padding-right: 42px;
 }
 
 section div ul img{
-	width: 180px;
+	width: 140px;
 }
 
 section .product {
@@ -369,9 +369,9 @@ footer{
 
 footer div.info {
 	position: absolute;
-	left: 20%;
+	left: 8%;
 	height: 100%;
-	width: 80%;
+	width: 100%;
 	box-sizing: border-box;
 	font-size: 13px;
 }
