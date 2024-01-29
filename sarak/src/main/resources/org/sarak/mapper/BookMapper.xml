@@ -155,7 +155,6 @@
                 book.bid
             FROM
                 tbl_book book
-                LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid
                 LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
             ORDER BY sales DESC
         ) 
@@ -196,8 +195,6 @@
                 book.bid
             FROM
                 tbl_book book
-                LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid
-                LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
             WHERE pubdate >= TO_CHAR(SYSDATE-30,'YYYY/MM/dd')
         )  
 	    ]]>
