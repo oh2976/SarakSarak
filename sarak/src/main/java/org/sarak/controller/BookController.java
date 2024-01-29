@@ -39,11 +39,52 @@ public class BookController {
 	
 	// 메인 페이지
 	@GetMapping("/main")
-	public void main() {
+	public void main(Criteria cri, Model model) {
 		
 		log.info("###### 메인 페이지 진입 ######");
+		model.addAttribute("bestBookList", bookService.bestBookList(cri));
+		model.addAttribute("newBookList", bookService.newBookList(cri));
 		
+		log.info("newBookList" + bookService.newBookList(cri));
+		
+
 	}
+	
+	@GetMapping("/bestBookList")
+	public String bestBook(Criteria cri, Model model) {
+		log.info("###### 베스트 페이지 진입 ######");
+		
+		model.addAttribute("bestBookList", bookService.bestBookList(cri));
+		
+		int total = bookService.getBestTotal(cri);	
+		
+		log.info("bestBookList: " + cri);
+		
+		log.info("total: " + total);
+		
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		
+		return "sarak/bestBookList";
+	}
+	
+	@GetMapping("/newBookList")
+	public String newBook(Criteria cri, Model model) {
+		log.info("###### 베스트 페이지 진입 ######");
+		
+		model.addAttribute("newBookList", bookService.newBookList(cri));
+		
+		int total = bookService.getNewTotal(cri);	
+		
+		log.info("newBookList: " + cri);
+		
+		log.info("total: " + total);
+		
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		
+		return "sarak/newBookList";
+	}
+	
+	
 	
 	// 전체도서 비동기
 	@RequestMapping("/allBookListAjax")
@@ -135,5 +176,6 @@ public class BookController {
 		return result;
 		
 	}
+	
 
 }

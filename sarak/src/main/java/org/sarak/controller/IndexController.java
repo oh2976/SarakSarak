@@ -10,10 +10,10 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/index/*")
 @Controller
 public class IndexController {
-	@GetMapping("/main")
-	public void doAll() {
-		log.info("do all can access everybody");
-	}
+//	@GetMapping("/main")
+//	public void doAll() {
+//		log.info("do all can access everybody");
+//	}
 	
 	@GetMapping("/member")
 	public void doMember() {

@@ -76,4 +76,49 @@ public class BookServiceImpl implements BookService {    // BookService 인터�
 		
 	}
 
+	@Override
+	public BookVO getMap(int bid) {
+		log.info("getMap...");
+		return bookMapper.readmap(bid);
+	}
+
+	@Override
+	public List<BookVO> allBookListMap(Criteria cri) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<BookVO> bestBookList(Criteria cri) {
+		log.info("###### best book list with criteria ######" + cri);	
+		
+		// 페이징 조건을 이용하여 베스트 전체 도서 목록 가져옴
+		return bookMapper.bestBookListWithPaging(cri);
+	}
+
+	@Override
+	public List<BookVO> newBookList(Criteria cri) {
+		log.info("###### new book list with criteria ######" + cri);	
+		
+		// 페이징 조건을 이용하여 베스트 전체 도서 목록 가져옴
+		return bookMapper.newBookListWithPaging(cri);
+	}
+
+	@Override
+	public int getBestTotal(Criteria cri) {
+		log.info("get best total count");
+		
+		// 베스트 전체 도서 수 가져옴 (페이징)
+		return bookMapper.getBestTotalCount(cri);
+	}
+
+	@Override
+	public int getNewTotal(Criteria cri) {
+		log.info("get new total count");
+		
+		// 베스트 전체 도서 수 가져옴 (페이징)
+		return bookMapper.getNewTotalCount(cri);
+	}
+
+
 }

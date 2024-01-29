@@ -39,7 +39,7 @@
 		<div class="wapperloginBtn">
 			<div class="loginBtn">
 				<a href="/customLogin">로그인</a>
-				<a href="#">회원가입</a>
+				<a href="/register">회원가입</a>
 				<a href="#">고객센터</a>
 			</div>
 		</div>
@@ -69,9 +69,9 @@
 		<nav>
 			<div class="menubar">
 				<ul>
-					<li><a href="#">전체도서</a></li>
-					<li><a href="#" id="current">베스트도서</a></li>
-					<li><a href="#" id="com">신간도서</a></li>
+					<li><a href="/sarak/allBookList">전체도서</a></li>
+					<li><a href="/sarak/bestBookList" id="current">베스트도서</a></li>
+					<li><a href="/sarak/newBookList" id="com">신간도서</a></li>
 					<li><a href="#">공지사항</a></li>
 				</ul>
 			</div>

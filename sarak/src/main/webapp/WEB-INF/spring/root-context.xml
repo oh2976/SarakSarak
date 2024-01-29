@@ -44,13 +44,14 @@
 	</bean>
 	
 	<tx:annotation-driven/>
-	<task:annotation-driven/>
+	
 	<context:annotation-config></context:annotation-config>
 	
 	<!-- <mybatis-spring:scan base-package="org.sarak.mapper"/>  -->
 	<mybatis-spring:scan base-package="org.sarak.mapper" />
 	<context:component-scan base-package="org.sarak.service"></context:component-scan>
+	<context:component-scan base-package="org.sarak.task"></context:component-scan>
 	
-	
+	<task:annotation-driven/>
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 </beans>

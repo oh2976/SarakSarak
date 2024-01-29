@@ -25,5 +25,6 @@ public class BookVO {
 	private String detailimg;
 	
 	private List<BookAttachVO> attachList;
+	private BookSalesVO sales;
 	
 }
