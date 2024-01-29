@@ -6,6 +6,7 @@
 
 	<resultMap type="org.sarak.domain.BookVO" id="bookMap">
 		<id property="bid" column="bid"/>
+		<result property="bid" column="bid"/>
 		<result property="bname" column="bname"/>
 		<result property="bprice" column="bprice"/>
 		<result property="isbn" column="isbn"/>
@@ -27,7 +28,7 @@
 	</select>
 	
 	<resultMap type="org.sarak.domain.BookAttachVO" id="attachMap">
-		<id property="bid" column="bid"/>
+		<result property="bid" column="bid"/>
 		<result property="filename" column="filename"/>
 		<result property="uploadpath" column="uploadpath"/>
 	</resultMap>
@@ -39,12 +40,12 @@
 	
 	<select id="readmap" resultMap="bookMap">
 		 SELECT 
-		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname
+		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, book.summary, book.contents, img.filename, img.uploadpath, sales.sales, a.authorname
 		    FROM
 		        tbl_book book
-		        LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid
-		        LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
-		        LEFT OUTER JOIN tbl_author a on book.authorid = a.authorid
+		        JOIN tbl_book_img img on book.bid = img.bid
+		        JOIN tbl_book_sales sales on book.bid = sales.bid
+		        JOIN tbl_author a on book.authorid = a.authorid
 		WHERE
 			book.bid = #{bid}
 	</select>

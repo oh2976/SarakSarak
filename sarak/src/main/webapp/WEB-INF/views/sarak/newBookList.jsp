@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<link rel="stylesheet" href="../../resources/dist/css/allBook.css">
 <link rel="stylesheet" href="../../resources/dist/css/bestBook.css">
 
 <head>

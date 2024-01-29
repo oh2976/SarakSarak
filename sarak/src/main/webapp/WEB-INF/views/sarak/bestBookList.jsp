@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<link rel="stylesheet" href="../../resources/dist/css/allBook.css">
 <link rel="stylesheet" href="../../resources/dist/css/bestBook.css">
 
 <head>
@@ -106,6 +105,7 @@
 											</div>
 										</td>
 										<td class="btn-group">
+										
 											<div class="cartbtn">
 												<input type="button" class="cart" name="btn" value="장바구니"></button>
 											</div>

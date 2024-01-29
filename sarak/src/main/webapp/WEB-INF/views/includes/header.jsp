@@ -17,6 +17,7 @@
 
     <!-- Custom CSS -->
     <link href="/resources/dist/css/main.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="../../resources/dist/css/allBook.css">
 
     <!-- Custom Fonts -->
     <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">

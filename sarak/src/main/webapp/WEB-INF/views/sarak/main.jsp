@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
 <head>
@@ -75,11 +76,13 @@
 				<c:forEach items="${bestBookList}" var="best" varStatus="status">
 					<c:if test="${status.index < 5}">
 						<c:forEach items="${best.attachList}" var="attach" >
+							<c:if test="${fn:contains(fn:toLowerCase(fn:substringBefore(attach.filename, '.')), 'mainimg')}">
 						   	<a class='move' href='<c:out value="${best.bid}"/>'>
 						   	<li>
 						   	<img src="<c:url value='/sarak/display'/>?filename=<c:out value='${attach.uploadpath}/${attach.filename}'/>" alt="${best.bname}"/>
 						   	</li>
 						   	</a>
+						   	</c:if>
 						</c:forEach>
 					</c:if>
 				</c:forEach>
@@ -95,11 +98,13 @@
 			<c:forEach items="${newBookList}" var="newBook" varStatus="status">
 				<c:if test="${status.index < 5}">
 					<c:forEach items="${newBook.attachList}" var="attach">
+						<c:if test="${fn:contains(fn:toLowerCase(fn:substringBefore(attach.filename, '.')), 'mainimg')}">
 				    	<a class='move' href='<c:out value="${newBook.bid}"/>'>
 				    	<li>
 				    	<img src="<c:url value='/sarak/display'/>?filename=<c:out value='${attach.uploadpath}/${attach.filename}'/>" alt="${newBook.bname}"/>
 						</li>
 						</a>	
+						</c:if>
 					</c:forEach>
 				</c:if>
 			</c:forEach>
