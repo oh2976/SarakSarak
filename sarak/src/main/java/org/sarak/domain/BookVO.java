@@ -27,6 +27,7 @@ public class BookVO {
 	private String detailimg;
 	
 	private List<BookAttachVO> attachList;
-	private BookSalesVO sales;
+	private int sales;
+	private int stock;
 	
 }

@@ -140,7 +140,7 @@ public class BookController {
 		
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		
-		return "allBookList";
+		return "sarak/allBookList";
 		
 	}
 	@GetMapping("/bookDetail")
@@ -156,7 +156,7 @@ public class BookController {
 		
 		model.addAttribute("book", book);
 		
-		return "bookDetail";
+		return "sarak/bookDetail";
 		
 	}
 	

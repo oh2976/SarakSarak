@@ -1,10 +1,11 @@
 package org.sarak.domain;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 
-@Getter
 @ToString
+@Data
 public class PageDTO {    // 페이징 처리에 필요한 정보
 	
 	private int startPage;

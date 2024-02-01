@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -81,6 +82,13 @@
 				
 				updateTotalPrice();
 				
+			});
+			
+			// 바로 구매 버튼
+			$(".buynow").on("click", function(){
+				let bookCount = $(".quantity").val();
+				$(".order_form").find("input[name='orders[0].bookCount']").val(bookCount);
+				$(".order_form").submit();
 			});
 			
 		});
@@ -296,7 +304,7 @@
 		<!-- 전체 페이지 영역 시작 -->
 		<div class="sarakMainWrapper">
 			<!-- 헤더 영역 시작 -->
-			<%@ include file="includes/header.jsp" %>
+			<%@ include file="../includes/header.jsp" %>
 			<!-- 헤더 영역 끝 -->
 			
 			<!-- 미들 영역 시작 -->
@@ -375,12 +383,22 @@
 									<div class="cartbtn">
 										<input type="button" class="cart" name="btn" value="장바구니"></button>
 									</div>
+								
 									<div class="buynowbtn">
 										<input type="button" class="buynow" name="btn" value="바로구매"></button>
 									</div>
 								</div>
 							</div>
 						</div>
+						
+						<!-- 주문 form -->
+						<form action="/sarak/order/" method="get" class="order_form">
+						
+							<input type="hidden" name="mid" value="${principal.member.mid }">
+							<input type="hidden" name="orders[0].bid" value="${book.bid }">
+							<input type="hidden" name="orders[0].bookCount" value="">
+						</form>
+						
 						
 						<div class="separator"></div>
 						
@@ -462,7 +480,7 @@
 			<!-- 미들 영역 끝 -->
 			
 			<!-- footer 영역 시작 -->
-			<%@ include file="includes/footer.jsp" %>
+			<%@ include file="../includes/footer.jsp" %>
 			<!-- footer 영역 끝 -->
 			
 		</div>

@@ -182,7 +182,7 @@
 		<!-- 전체 페이지 영역 시작 -->
 		<div class="sarakMainWrapper">
 			<!-- 헤더 영역 시작 -->
-			<%@ include file="includes/header.jsp" %>
+			<%@ include file="../includes/header.jsp" %>
 			<!-- 헤더 영역 끝 -->
 			
 			<!-- 미들 영역 시작 -->
@@ -267,7 +267,7 @@
 			<!-- 미들 영역 끝 -->
 			
 			<!-- footer 영역 시작 -->
-			<%@ include file="includes/footer.jsp" %>
+			<%@ include file="../includes/footer.jsp" %>
 			<!-- footer 영역 끝 -->
 			
 		</div>

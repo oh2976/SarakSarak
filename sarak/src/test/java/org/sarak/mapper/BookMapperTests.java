@@ -50,15 +50,15 @@ public class BookMapperTests {
 //		
 //	}
 	
-//	// 도서 조회 테스트
-//	@Test
-//	public void testRead() {
-//		
-//		BookVO book = bookMapper.read(4);
-//		
-//		log.info(book);
-//		
-//	}
+	// 도서 조회 테스트
+	@Test
+	public void testRead() {
+		
+		BookVO book = bookMapper.readmap(4);
+		
+		log.info(book);
+		
+	}
 	
 	// 도서 삭제 테스트
 //	@Test
@@ -109,12 +109,12 @@ public class BookMapperTests {
 		
 	}
 	
-	@Test
-	public void testBestBookList() {
-		List<BookVO> list = bookMapper.bestBookList();
-		log.info("testBestBookList()....");
-		list.forEach(book -> log.info(book));
-	}
+//	@Test
+//	public void testBestBookList() {
+//		List<BookVO> list = bookMapper.bestBookList();
+//		log.info("testBestBookList()....");
+//		list.forEach(book -> log.info(book));
+//	}
 	
 	
 	@Test
