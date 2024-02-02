@@ -10,8 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-	<link rel="stylesheet" href="../../resources/dist/css/allBook.css">
-	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="../../resources/dist/css/main.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	
 	<script type="text/javascript">
@@ -42,7 +42,7 @@
 <div class="sarakMainWrapper">
 	<%@include file="../includes/header.jsp"%>
 	
-	<section class="container">
+	<section class="bannerContainer">
 		<input id="select1" name="radioBanner" type="radio" class="banner_input1" checked="" />
         <label for="select1" class="label_btn1">1</label>
 
@@ -57,10 +57,10 @@
                <a href="#"><img src="../../resources/img/banner.png" alt="중고장터 광고1"></a>
             </li>
             <li>
-                <a href="#"><img src="" alt="중고장터 광고2"></a>
+                <a href="#"><img src="../../resources/img/banner.png" alt="중고장터 광고2"></a>
             </li>
             <li>
-                <a href="#"><img src="" alt="이벤트"></a>
+                <a href="#"><img src="../../resources/img/banner.png" alt="이벤트"></a>
             </li>
         </ul>
 	</section>

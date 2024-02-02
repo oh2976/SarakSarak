@@ -20,12 +20,10 @@
 
 	<title>사락사락</title>
 
-    <!-- Custom CSS -->
-    <link href="/resources/dist/css/main.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="../../resources/dist/css/allBook.css">
-
-    <!-- Custom Fonts -->
-    <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="/resources/dist/css/all.css">
+	
+	    <!-- Bootstrap Core CSS -->
+    <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     	 <script type="text/javascript">
 		    $(document).ready(function(e) {
@@ -61,7 +59,6 @@
    			 <sec:authorize access="isAuthenticated()">
    			 	<a href="/customLogout">로그아웃</a> 
    			 	<a href="">${principal.member.mname }</a> 
-   			 	<a href="/cart/cartList">장바구니</a> 
    			 </sec:authorize>
 				<a href="#">고객센터</a>
 			</div>
@@ -69,7 +66,7 @@
 			
 			<div class="headerNav">
 				<a href="/sarak/main" class="mainHeder">
-					<img id="logoimg" src="../../resources/img/logo.jpg">
+					<img id="logoimg" src="/resources/img/logo.jpg">
 				</a>
 				<div class="Search">
 					<input type="text"
@@ -80,7 +77,7 @@
 </svg></button>
 				</div>
 				<div class="userNav">
-	<button ><?xml version="1.0" encoding="UTF-8"?>
+	<button onclick="location.href='/cart/cartList'"><?xml version="1.0" encoding="UTF-8"?>
 	<svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512"><path d="M21,6H18A6,6,0,0,0,6,6H3A3,3,0,0,0,0,9V19a5.006,5.006,0,0,0,5,5H19a5.006,5.006,0,0,0,5-5V9A3,3,0,0,0,21,6ZM12,2a4,4,0,0,1,4,4H8A4,4,0,0,1,12,2ZM22,19a3,3,0,0,1-3,3H5a3,3,0,0,1-3-3V9A1,1,0,0,1,3,8H6v2a1,1,0,0,0,2,0V8h8v2a1,1,0,0,0,2,0V8h3a1,1,0,0,1,1,1Z"/></svg>
 	</button>
 	<button ><?xml version="1.0" encoding="UTF-8"?>
