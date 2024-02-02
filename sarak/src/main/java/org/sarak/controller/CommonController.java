@@ -31,6 +31,10 @@ public class CommonController {
 	public void accessDenied(Authentication auth, Model model) {
 		log.info("access Denied : " + auth);
 		
+		if (auth != null) {
+	        log.info("Granted Authorities: " + auth.getAuthorities());
+	    }
+		
 		model.addAttribute("msg", "Access Denied");
 	}
 	

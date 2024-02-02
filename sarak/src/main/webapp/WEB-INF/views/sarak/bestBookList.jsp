@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+<link rel="stylesheet" href="../../resources/dist/css/allBook.css">
 <link rel="stylesheet" href="../../resources/dist/css/bestBook.css">
 
 <head>
@@ -22,6 +23,29 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 	
 	 <script type="text/javascript">
+	 
+	 	function addToCart(bookId) {
+			
+		    var quantity = 1;    // 리스트에서 장바구니 처리 요청은 quantity를 1로 고정
+
+		    <sec:authorize access="isFullyAuthenticated()">
+		        $.ajax({
+		            type: "POST",
+		            url: "/cart/add",
+		            data: { bookId: bookId, quantity: quantity, ${_csrf.parameterName}: '${_csrf.token}' },
+		            success: function(response) {
+		                alert("해당 상품이 장바구니에 추가되었습니다.");
+		            },
+		            error: function() {
+		                alert("상품을 장바구니에 추가하는데 실패했습니다.");
+		            }
+		        });
+		    </sec:authorize>
+
+		    <sec:authorize access="isAnonymous()">
+		        alert("로그인이 필요합니다.");
+		    </sec:authorize>
+		}
 	 
 		$(document).ready(function() {
 				
@@ -56,6 +80,14 @@
 					history.replaceState({ page: "bookDetail", bid: bid }, "Book Detail", "/sarak/bookDetail?bid=" + bid);
 					
 				});
+				
+				$(".cart").on("click", function(e) {
+					
+			        var bookId = $(this).closest("tr").find(".bid").text();
+			        
+			        addToCart(bookId);
+			        
+			    });
 				
 			});
 		</script>
@@ -105,7 +137,6 @@
 											</div>
 										</td>
 										<td class="btn-group">
-										
 											<div class="cartbtn">
 												<input type="button" class="cart" name="btn" value="장바구니"></button>
 											</div>

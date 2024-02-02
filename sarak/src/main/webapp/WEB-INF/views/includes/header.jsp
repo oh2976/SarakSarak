@@ -27,12 +27,23 @@
     <!-- Custom Fonts -->
     <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    	 <script type="text/javascript">
+		    $(document).ready(function(e) {
+		    	
+		    	$(".btn-mycart").on("click", function() {
+		    		
+					<sec:authorize access="isFullyAuthenticated()">
+						window.location.href = "/cart/cartList";	
+					</sec:authorize>	
+					            
+					<sec:authorize access="isAnonymous()">
+						alert("로그인이 필요합니다.");
+					</sec:authorize>
+		    		
+		    	});
+		    	
+		    });
+	    </script>
 
 </head>
 
@@ -50,15 +61,15 @@
    			 <sec:authorize access="isAuthenticated()">
    			 	<a href="/customLogout">로그아웃</a> 
    			 	<a href="">${principal.member.mname }</a> 
-   			 	<a href="">장바구니</a> 
+   			 	<a href="/cart/cartList">장바구니</a> 
    			 </sec:authorize>
 				<a href="#">고객센터</a>
 			</div>
 		</div>
 			
 			<div class="headerNav">
-				<a href="#" class="mainHeder">
-					<img src="img/logo.jpg">
+				<a href="/sarak/main" class="mainHeder">
+					<img id="logoimg" src="../../resources/img/logo.jpg">
 				</a>
 				<div class="Search">
 					<input type="text"

@@ -54,7 +54,7 @@
 
         <ul class="banner_mask">
             <li>
-                <a href="#"><img src="" alt="중고장터 광고1"></a>
+               <a href="#"><img src="../../resources/img/banner.png" alt="중고장터 광고1"></a>
             </li>
             <li>
                 <a href="#"><img src="" alt="중고장터 광고2"></a>
