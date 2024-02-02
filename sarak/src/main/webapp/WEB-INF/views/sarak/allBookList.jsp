@@ -114,6 +114,25 @@
 		        
 		    });
 			
+			// 바로 구매 버튼
+			$(".buynow").on("click", function(){
+				// 클릭한 바로구매 상품의 bid 가져오기
+				let bid = 0;
+				bid = parseInt($(".buynowBid").val());
+				console.log(bid); 
+				let bookCount = 1;
+				console.log(bookCount);
+				/* 상품정보 */
+				let form_contents = ''; 
+				let bookId_input = "<input name='orders[0].bid' type='hidden' value='" + bid + "'>";
+				form_contents += bookId_input;
+				let bookCount_input = "<input name='orders[0].bookCount' type='hidden' value='" + bookCount + "'>";
+				form_contents += bookCount_input;
+				$(".order_form").append(form_contents);	
+				$(".order_form").submit();
+			});
+			
+			
 		});
 	</script>
     
@@ -167,10 +186,18 @@
 												<input type="button" class="cart" name="btn" value="장바구니"></button>
 											</div>
 											<div class="buynowbtn">
-												<input type="button" class="buynow" name="btn" value="바로구매"></button>
+												<input type="button" class="buynow" name="btn" value="바로구매">
+												<input type="hidden" class="buynowBid" name="bid" value="${vo.bid}">
 											</div>
 										</td>
 									</tr>
+									
+									<!-- 주문 form -->
+									<form action="/sarak/order/" method="get" class="order_form">
+										<input type="hidden" name="mid" value="${principal.member.mid }">
+										<input type="hidden" name="orders[0].bid" value="">
+										<input type="hidden" name="orders[0].bookCount" value="">
+									</form>
 									
 									<!-- 구분 선 -->
 									<tr>

@@ -428,3 +428,8 @@ footer div.businessOperatorInfo {
 	line-height: 20px;
 	box-sizing: border-box;
 }
+
+div.more a:hover{
+	color: rgba(142, 230, 219, 1);
+	text-decoration: none;
+}
