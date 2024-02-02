@@ -9,12 +9,14 @@ import org.sarak.domain.BookAttachVO;
 import org.sarak.domain.BookSalesVO;
 import org.sarak.domain.BookStockVO;
 import org.sarak.domain.BookVO;
+import org.sarak.domain.CartDTO;
 import org.sarak.domain.MemberVO;
 import org.sarak.domain.OrderDTO;
 import org.sarak.domain.OrderDetailDTO;
 import org.sarak.domain.OrderPageItemDTO;
 import org.sarak.mapper.BookAttachMapper;
 import org.sarak.mapper.BookMapper;
+import org.sarak.mapper.CartMapper;
 import org.sarak.mapper.MemberMapper;
 import org.sarak.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,9 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Setter(onMethod_ = @Autowired)
 	private MemberMapper memberMapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private CartMapper cartMapper;
 	
 	@Override
 	public List<OrderPageItemDTO> getBooksInfo(List<OrderPageItemDTO> orders) {
@@ -107,6 +112,17 @@ public class OrderServiceImpl implements OrderService{
 			
 			orderMapper.deductStock(stockvo);
 			orderMapper.inductSales(salesvo);
+		}
+		
+		/* 장바구니 DB 제거 */
+		for (OrderDetailDTO odd : ord.getOrders()) {
+
+			CartDTO cartDTO = new CartDTO();
+			cartDTO.setMid(ord.getMid());
+			cartDTO.setBid(odd.getBid());
+
+			cartMapper.deleteOrderCart(cartDTO);
+
 		}
 		
 	}

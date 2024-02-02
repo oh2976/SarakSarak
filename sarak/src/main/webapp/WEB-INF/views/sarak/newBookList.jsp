@@ -80,6 +80,7 @@
 			        
 			        addToCart(bookId);
 			        
+			        window.location.href = "/cart/cartList";
 			    });
 				
 				// 바로 구매 버튼
