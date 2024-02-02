@@ -98,14 +98,9 @@
 <div class="sarakMainWrapper">
 	<%@include file="../includes/header.jsp"%>
 	
-	<section >
-		<div>
-			${orderList }
-		</div>
-		<div>
-			${memberInfo }
-		</div>
+	<div class="maintitle">주문/결제</div>
 		<div class="content_main">
+
 				<!-- 배송지 정보 -->
 				<div class="addressInfo_div">
 					<div class="addressInfo_input_div_wrap">
@@ -115,23 +110,21 @@
 											<col width="25%">
 											<col width="*">
 										</colgroup>
-										<tbody>
+										<div class="shiptitle">배송지 정보</div>
+										<tbody class="shipitem">
 											<tr>
-												<th>이름</th>
 												<td>
 													${memberInfo.mname}
 												</td>
 											</tr>
 											<tr>
-												<th>연락처</th>
 												<td>
 													${memberInfo.phone}
 												</td>
 											</tr>
 											<tr>
-												<th>주소</th>
-												<td>
- 													${memberInfo.postcode} <br>${memberInfo.address}	
+												<td class="shipdetailitem">
+ 													[${memberInfo.postcode}] ${memberInfo.address}	
 													<input class="ordername_input" value="${memberInfo.mname}" type="hidden">
 													<input class="orderphone_input" type="hidden" value="${memberInfo.phone}">
 													<input class="orderpostcode_input" type="hidden" value="${memberInfo.postcode}">
@@ -149,21 +142,7 @@
 					<div class="goods_kind_div">
 						주문상품 <span class="goods_kind_div_kind"></span>종 <span class="goods_kind_div_count"></span>개
 					</div>
-					<!-- 상품 테이블 -->
-					<table class="goods_subject_table">
-						<colgroup>
-							<col width="15%">
-							<col width="45%">
-							<col width="40%">
-						</colgroup>
-						<tbody>
-							<tr>
-								<th>이미지</th>
-								<th>상품 정보</th>
-								<th>판매가</th>
-							</tr>
-						</tbody>
-					</table>
+					<hr>
 					<table class="goods_table">
 						<colgroup>
 							<col width="15%">
@@ -179,10 +158,10 @@
 											<img src="<c:url value='/sarak/display'/>?filename=<c:out value='${list.attachList[0].uploadpath}/${list.attachList[0].filename}'/>" alt="표지 이미지"/>
 										</div>
 									</td>
-									<td>${list.bname}</td>
 									<td class="goods_table_price_td">
-										<fmt:formatNumber value="${list.bprice}" pattern="#,### 원" /> | 수량 ${list.bookCount}개
-										<br><fmt:formatNumber value="${list.totalPrice}" pattern="#,### 원" />
+										<div class="price_td_bold">${list.bname}</div>
+										<div class="price_td_normal"><fmt:formatNumber value="${list.bprice}" pattern="#,### 원" /> | 수량 ${list.bookCount}개</div>
+										<div class="price_td_bold"><fmt:formatNumber value="${list.totalPrice}" pattern="#,### 원" /></div>
 										<input type="hidden" class="individual_bookPrice_input" value="${list.bprice}">
 										<input type="hidden" class="individual_bookCount_input" value="${list.bookCount}">
 										<input type="hidden" class="individual_totalPrice_input" value="${list.bprice * list.bookCount}">
@@ -208,7 +187,7 @@
 								<span class="delivery_price_span">100000</span>원
 							</li>
 							<li class="price_total_li">
-								<strong class="price_span_label total_price_label">최종 결제 금액</strong>
+								<strong class="price_span_label total_price_label">결제 예정 금액</strong>
 								<strong class="strong_red">
 									<span class="total_price_red finalTotalPrice_span">
 										1500000
@@ -219,7 +198,7 @@
 					</div>
 					<!-- 버튼 영역 -->
 					<div class="total_info_btn_div">
-						<a class="order_btn">결제하기</a>
+						<a class="order_btn">결제하기[<span class="goods_kind_div_count"></span>]</a>
 					</div>
 					<!-- 주문 요청 form -->
 					<form class="order_form" action="/sarak/order" method="post">
@@ -235,7 +214,6 @@
 					</form>
 				</div>
 			</div>
-	</section>
 	<%@include file="../includes/footer.jsp"%>
 	
 </div>

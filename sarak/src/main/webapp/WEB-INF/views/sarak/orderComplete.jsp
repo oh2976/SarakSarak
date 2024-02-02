@@ -58,10 +58,7 @@
 <div class="sarakMainWrapper">
 	<%@include file="../includes/header.jsp"%>
 	
-	<section >
-		<div>
-			${orderItem }
-		</div>
+		<div class="maintitle">주문완료</div>
 		<div class="content_main">
 				<!-- 배송지 정보 -->
 				<div class="addressInfo_div">
@@ -72,23 +69,21 @@
 											<col width="25%">
 											<col width="*">
 										</colgroup>
-										<tbody>
+										<div class="shiptitle">배송지 정보</div>
+										<tbody class="shipitem">
 											<tr>
-												<th>이름</th>
 												<td>
 													${orderItem.ordername}
 												</td>
 											</tr>
 											<tr>
-												<th>연락처</th>
 												<td>
 													${orderItem.orderphone}
 												</td>
 											</tr>
 											<tr>
-												<th>주소</th>
-												<td>
- 													${orderItem.orderpostcode} <br>${orderItem.orderaddress}								
+												<td class="shipdetailitem">
+ 													[${orderItem.orderpostcode}] ${orderItem.orderaddress}								
 												</td>
 											</tr>
 										</tbody>
@@ -102,21 +97,7 @@
 					<div class="goods_kind_div">
 						주문상품 <span class="goods_kind_div_kind"></span>종 <span class="goods_kind_div_count"></span>개
 					</div>
-					<!-- 상품 테이블 -->
-					<table class="goods_subject_table">
-						<colgroup>
-							<col width="15%">
-							<col width="45%">
-							<col width="40%">
-						</colgroup>
-						<tbody>
-							<tr>
-								<th>이미지</th>
-								<th>상품 정보</th>
-								<th>판매가</th>
-							</tr>
-						</tbody>
-					</table>
+					<hr>
 					<table class="goods_table">
 						<colgroup>
 							<col width="15%">
@@ -132,13 +113,12 @@
 											<img src="<c:url value='/sarak/display'/>?filename=<c:out value='${ods.attachList[0].uploadpath}/${ods.attachList[0].filename}'/>" alt="표지 이미지"/>
 										</div>
 									</td>
-									<td>${ods.bname}</td>
 									<td class="goods_table_price_td">
-										<fmt:formatNumber value="${ods.odetailprice}" pattern="#,### 원" /> | 수량 ${ods.odetailquan}개
-										<br><fmt:formatNumber value="${ods.odetailprice * ods.odetailquan}" pattern="#,### 원" />
+										<div class="price_td_bold">${ods.bname}</div>
+										<div class="price_td_normal"><fmt:formatNumber value="${ods.odetailprice}" pattern="#,### 원" /> | 수량 ${ods.odetailquan}개</div>
+										<div class="price_td_bold"><fmt:formatNumber value="${ods.odetailprice * ods.odetailquan}" pattern="#,### 원" /></div>
 										<input type="hidden" class="individual_bookCount_input" value="${ods.odetailquan}">
-										<input type="hidden" class="individual_totalPrice_input" value="${ods.odetailprice * ods.odetailquan}">
-	
+										<input type="hidden" class="individual_totalPrice_input" value="${ods.odetailprice * ods.odetailquan}">	
 									</td>
 								</tr>			
 								</c:forEach>				
@@ -171,7 +151,6 @@
 					</div>
 				</div>
 			</div>
-	</section>
 	<%@include file="../includes/footer.jsp"%>
 	
 </div>
