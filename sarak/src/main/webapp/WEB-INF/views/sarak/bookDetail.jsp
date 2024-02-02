@@ -19,7 +19,8 @@
 
     <!-- Custom Fonts -->
     <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="../../resources/dist/css/allBook.css">
+    <link rel="stylesheet" href="../resources/dist/css/allbookVO.css">
+     <link rel="stylesheet" href="../resources/dist/css/bookDetail.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     
@@ -29,7 +30,7 @@
 			// 수량 선택 : 증감에 따른 총 상품 가격 변동 함수
 			function updateTotalPrice() {
 				
-				var bprice = ${book.bprice};
+				var bprice = ${bookVO.bprice};
 				var quan = $(".quantity").val();
 				var totalPrice = bprice * quan;
 				
@@ -94,208 +95,6 @@
 		});
 	</script>
     
-    <style>
-		@charset "UTF-8";
-		
-		*{
-			margin: 0;
-			padding:0;
-		}
-		
-		.sarakMiddleArea {
-			margin: 0px 0px 150px 0px;
-		}
-		
-		
-		.bname {
-			text-align: center;
-			margin-top: 80px;
-			margin-bottom: 80px;
-			font-size: 26px;
-			font-weight: bold;
-		}
-		
-		.book-info {
-			float: right;
-			margin-right: 120px;
-			width: 350px;
-		}
-		
-		.book-allinfo {
-			overflow: hidden;
-		}
-		
-		.bprice {
-			padding: 20px;
-			font-size: 18px;
-			font-weight: bold;
-		}
-		
-		.select-box {
-			border-top: 1px solid #d8d8d8;
-			padding: 20px 20px 20px 20px;
-		}
-		
-		.tbl-select-box {
-			font-size: 15px;
-			font-weight: bold;
-			padding: 20px 20px 5px 20px;
-		}
-		
-		.tbl-select-box th {
-			line-height: 40px;
-			text-align: left;
-		}
-		
-		.tbl-select-box td {
-			line-height: 40px;
-			text-align: right;
-		}
-		
-		.quanbox {
-			display: flex;
-			width: 130px;
-			height: 50px;
-			align-items: center;
-			border: solid;
-			border-width: 1px;
-			border-color: #a4a4a4;
-			border-radius: 8px;
-			padding-left: 3px;
-		}
-		
-		.quanbox button {
-			width: 40px;
-			height: 40px;
-			font-size: 15px;
-			font-weight: bold;
-			background-color: white;
-			cursor: pointer;
-			text-align: center;
-			border: none;
-		}
-		
-		.quantity {
-			font-size: 14px;
-			width: 40px;
-			height: 40px;
-			text-align: center;
-			border: none;
-		}
-		
-		.authorname {
-			border-top: 1px solid #d8d8d8;
-			font-size: 15px;
-			font-weight: bold;
-			padding: 20px 20px 5px 20px;    /* 순서 : 상 우 하 좌 */
-		}
-		
-		.publisher {
-			font-size: 15px;
-			color: #6e6e6e;
-			padding: 5px 20px 20px 20px;
-			
-		}
-		
-		.mainimg img {
-			width: 310px;
-			height: auto;
-			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-			float: left;
-			margin-left: 120px;
-			margin-right: 80px;
-		}
-		
-		.detailimg img {
-			margin: auto;
-			display: block;
-			width: 700px;
-			height: auto;
-		}
-		
-		.subheading {
-			font-size: 24px;
-			font-weight: bold;
-			margin: 0px 40px 50px 40px;
-		}
-		
-		.summary {
-			margin: 0px 40px 50px 40px;
-			font-size: 16px;
-			color: #6e6e6e;
-		}
-		
-		.contents {
-			margin: 0px 40px 50px 40px;
-			font-size: 16px;
-			color: #6e6e6e;
-		}
-		
-		.book-info-detail-basic {
-			margin: 0px 40px 50px 40px;
-			display: block;
-			padding: 20px 0px 20px 10px;
-			border-top: 1px solid #000;
-			border-bottom: 1px solid #d9d9d9;
-		}
-		
-		.tbl-info th {
-			padding: 12px 10px;
-			width: 200px;
-			line-height: 35px;
-			text-align: left;
-			font-size: 16px;
-			font-weight: 500;
-			color: #000;
-			vertical-align: top;
-		}
-		
-		.tbl-info td {
-			padding: 12px 10px;
-			line-height: 35px;
-			text-align: left;
-			font-size: 16px;
-			font-weight: 400;
-			color: #767676;
-			vertical-align: top;
-		}
-		
-		.separator {
-			border-top: 1px solid #d9d9d9;
-  			margin: 50px 0px 50px 0px;
-		}
-		
-		.btn-group {
-			margin-top: 75px;
-			display: flex;
-			align-items: center;
-		}
-		
-		.cartbtn input {
-			width: 120px;
-			height: 60px;
-			background-color: #8e8e8e;
-			border: none;
-			font-size: 16px;
-			font-weight: bold;
-			color: white;
-			margin-right: 10px;
-			border-radius: 15px;
-		}
-		
-		.buynowbtn input {
-			width: 120px;
-			height: 60px;
-			background-color: #8ee6db;
-			border: none;
-			font-size: 16px;
-			font-weight: bold;
-			color: white;
-			border-radius: 15px;
-		}
-		
-	</style>
-    
     <title>도서 상세 페이지</title>
     
     </head>
@@ -315,7 +114,7 @@
 					<div class="main-content">
 						<div class="book-allinfo">
 							<!-- 도서 제목 -->
-							<div class="bname">${book.bname}</div>
+							<div class="bname">${bookVO.bname}</div>
 						
 							<!-- 도서 표지 이미지 -->
 							<div class="mainimg">
@@ -329,7 +128,7 @@
 							
 							<div class="book-info">
 								<div class="bprice">
-									<fmt:formatNumber value="${book.bprice}" pattern="#,###원"/>
+									<fmt:formatNumber value="${bookVO.bprice}" pattern="#,###원"/>
 								</div>
 								
 								<div class="select-box">
@@ -366,17 +165,17 @@
 										<tbody>
 											<tr style="margin-bottom: 10px;">
 												<th scope="row">총 상품 금액 : </th>
-												<td class="total-price"><fmt:formatNumber value="${book.bprice}" pattern="#,###원"/></td>
+												<td class="total-price"><fmt:formatNumber value="${bookVO.bprice}" pattern="#,###원"/></td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
 								
 								<div class="authorname">
-									${book.authorname} 저자(글)
+									${bookVO.authorname} 저자(글)
 								</div>
 								<div class="publisher">
-									${book.publisher} | <fmt:formatDate value="${book.pubdate}" pattern="yyyy년 MM월 dd일"/>
+									${bookVO.publisher} | <fmt:formatDate value="${bookVO.pubdate}" pattern="yyyy년 MM월 dd일"/>
 								</div>
 								
 								<div class="btn-group">
@@ -395,7 +194,7 @@
 						<form action="/sarak/order/" method="get" class="order_form">
 						
 							<input type="hidden" name="mid" value="${principal.member.mid }">
-							<input type="hidden" name="orders[0].bid" value="${book.bid }">
+							<input type="hidden" name="orders[0].bid" value="${bookVO.bid }">
 							<input type="hidden" name="orders[0].bookCount" value="">
 						</form>
 						
@@ -417,14 +216,24 @@
 						<div class="book-info-detail">
 							<div class="subheading">도서 소개</div>
 							<div class="summary">
-								${fn:replace(book.summary, '\\n', '<br><br>')}
+								${fn:replace(bookVO.summary, '\\n', '<br><br>')}
 							</div>
 							
 							<div class="separator"></div>
 							
+							<div class="subheading">작가 소개</div>
+								<div class="authorinfo">
+									<div class="authorinfo-name">
+										저자(글) ${bookVO.authorname}
+									</div>
+									<div class="authorinfo-desc">
+										${fn:replace(bookVO.authordesc, '\\n', ' ')}
+									</div>
+								</div>
+							
 							<div class="subheading">목차</div>
 							<div class="contents">
-								${fn:replace(book.contents, '\\n', '<br><br>')}
+								${fn:replace(bookVO.contents, '\\n', '<br><br>')}
 							</div>
 							
 							<div class="separator"></div>
@@ -441,7 +250,7 @@
 											<th scope="row">ISBN</th>
 											<td>
 												<div class="basic-isbn">
-													${book.isbn}
+													${bookVO.isbn}
 												</div>
 											</td>
 										</tr>
@@ -449,7 +258,7 @@
 											<th scope="row">발행(출시)일자</th>
 											<td>
 												<div class="basic-pubdate">
-													<fmt:formatDate value="${book.pubdate}" pattern="yyyy년 MM월 dd일"/>
+													<fmt:formatDate value="${bookVO.pubdate}" pattern="yyyy년 MM월 dd일"/>
 												</div>
 											</td>
 										</tr>

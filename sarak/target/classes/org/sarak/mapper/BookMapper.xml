@@ -13,6 +13,7 @@
 		<result property="pubdate" column="pubdate"/>
 		<result property="publisher" column="publisher"/>
 		<result property="authorid" column="authorid"/>
+		<result property="authordesc" column="authordesc"/>
 		<result property="authorname" column="authorname"/>
 		<result property="summary" column="summary"/>
 		<result property="contents" column="contents"/>
@@ -35,7 +36,7 @@
 	
 	<select id="readmap" resultMap="bookMap">
 		 SELECT 
-		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, book.summary, book.contents, img.filename, img.uploadpath, sales.sales, a.authorname, stock.stock
+		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, book.summary, book.contents, img.filename, img.uploadpath, sales.sales, a.authorname, stock.stock,  a.authordesc
 		    FROM
 		        tbl_book book
 		        LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid

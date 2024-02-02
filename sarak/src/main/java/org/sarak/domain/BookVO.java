@@ -20,6 +20,7 @@ public class BookVO {
 	private String publisher;
 	private int authorid;
 	private String authorname;
+	private String authordesc;
 	private String summary;
 	private String contents;
 	

@@ -143,21 +143,21 @@ public class BookController {
 		return "sarak/allBookList";
 		
 	}
+	
 	@GetMapping("/bookDetail")
 	public String bookDetail(@RequestParam("bid") int bid, @ModelAttribute("cri") Criteria cri, Model model) {
 		
 		log.info("###### 도서 상세 페이지 진입 ######");
 		
-		BookVO book = bookService.get(bid);
+		BookVO bookVO = bookService.getMap(bid);
 		
 		List<BookAttachVO> attachList = bookService.getAttachList(bid);
 		
+		model.addAttribute("bookVO", bookVO);
+		
 		model.addAttribute("attachList", attachList);
 		
-		model.addAttribute("book", book);
-		
 		return "sarak/bookDetail";
-		
 	}
 	
 	@GetMapping(value = "/getAttachList")
