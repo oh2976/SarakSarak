@@ -10,7 +10,9 @@ import org.sarak.domain.BookSalesVO;
 import org.sarak.domain.BookStockVO;
 import org.sarak.domain.BookVO;
 import org.sarak.domain.CartDTO;
+import org.sarak.domain.Criteria;
 import org.sarak.domain.MemberVO;
+import org.sarak.domain.OrderCancelDTO;
 import org.sarak.domain.OrderDTO;
 import org.sarak.domain.OrderDetailDTO;
 import org.sarak.domain.OrderPageItemDTO;
@@ -137,6 +139,45 @@ public class OrderServiceImpl implements OrderService{
 		}
 
 		return od;
+	}
+
+	@Override
+	public List<OrderDTO> getOrderList(Criteria cri) {
+		return orderMapper.getOrderListWithPaging(cri);
+	}
+
+	@Override
+	public int getOrderTotal(Criteria cri) {
+		return orderMapper.getOrderTotalCount(cri);
+	}
+
+	@Override
+	@Transactional
+	public void orderCancel(OrderCancelDTO ocd) {
+		
+		/* 주문 상품 */
+		OrderDTO dto = orderMapper.getOrderCompleteInfo(ocd.getOrderid());
+		List<OrderDetailDTO> ords = dto.getOrders();
+		
+		for(OrderDetailDTO ordetail : ords) {
+			BookVO book = bookMapper.readmap(ordetail.getBid());
+			int bid = book.getBid();
+			BookStockVO stockvo = new BookStockVO();
+			BookSalesVO salesvo = new BookSalesVO();
+			int stock = book.getStock() + ordetail.getOdetailquan();
+			int sales = book.getSales() - ordetail.getOdetailquan();
+			log.info(book.getStock());
+			stockvo.setBid(bid);
+			stockvo.setStock(stock);
+			salesvo.setBid(bid);
+			salesvo.setSales(sales);
+
+			orderMapper.deductStock(stockvo);
+			orderMapper.inductSales(salesvo);
+		}
+		
+		orderMapper.orderCancel(ocd.getOrderid());
+
 	}
 
 }

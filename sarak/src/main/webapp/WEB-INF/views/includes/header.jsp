@@ -40,15 +40,8 @@
 		    		
 		    	});
 		    	
-		    	
-				$(".btn-mycart").on("click", function(token) {
-						    		
-						token.submit();
-						    		
-						    	});
-		    	
 		    });
-		    
+		    	
 	    </script>
 
 </head>
@@ -88,13 +81,10 @@
 					<button onclick="location.href='/cart/cartList'"><?xml version="1.0" encoding="UTF-8"?>
 					<svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512"><path d="M21,6H18A6,6,0,0,0,6,6H3A3,3,0,0,0,0,9V19a5.006,5.006,0,0,0,5,5H19a5.006,5.006,0,0,0,5-5V9A3,3,0,0,0,21,6ZM12,2a4,4,0,0,1,4,4H8A4,4,0,0,1,12,2ZM22,19a3,3,0,0,1-3,3H5a3,3,0,0,1-3-3V9A1,1,0,0,1,3,8H6v2a1,1,0,0,0,2,0V8h8v2a1,1,0,0,0,2,0V8h3a1,1,0,0,1,1,1Z"/></svg>
 					</button>
-					<button onclick="location.href='/sarak/memberget?mid=<c:out value="${principal.member.mid}"/>'"><?xml version="1.0" encoding="UTF-8"?>
+					<button onclick="location.href='/mypage/orderList?mid=<c:out value="${principal.member.mid}"/>'"><?xml version="1.0" encoding="UTF-8"?>
 					<svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512"><path d="M12,12A6,6,0,1,0,6,6,6.006,6.006,0,0,0,12,12ZM12,2A4,4,0,1,1,8,6,4,4,0,0,1,12,2Z"/><path d="M12,14a9.01,9.01,0,0,0-9,9,1,1,0,0,0,2,0,7,7,0,0,1,14,0,1,1,0,0,0,2,0A9.01,9.01,0,0,0,12,14Z"/></svg>
 					</button>
 					
-					<form name="token" action="/sarak/memberget" method="post">
-						<sec:csrfInput />
-					</form>
 	
 			</div>
 			</div>

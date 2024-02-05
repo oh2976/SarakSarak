@@ -14,7 +14,7 @@
    		position: absolute;
    		width: 20%;
    		top: 50%;
-	    left: 50%;
+	    left: 45%;
 	    margin-left: -50px; /* width의 50% */
 	    margin-top: -50px; /* height의 50% */
 	    text-align: center;
@@ -70,7 +70,7 @@
 		position: absolute;
 		top: 85%;
 		width: 20%;
-	    left: 47%;
+	    left: 42%;
 	    font-size: 13px;
 	    text-align: left;
 	    float: left;

@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.sarak.domain.BookSalesVO;
 import org.sarak.domain.BookVO;
+import org.sarak.domain.OrderCancelDTO;
 import org.sarak.domain.OrderDTO;
 import org.sarak.domain.OrderDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,11 +99,17 @@ public class OrderMapperTests {
 //		orderMapper.inductSales(vo);
 //	}
 	
+//	@Test
+//	public void getOrderCompleteInfoTest() {
+//		
+//	    OrderDTO order = orderMapper.getOrderCompleteInfo("bb_2024013103");
+//	    log.info(order);
+//	}
+	
 	@Test
-	public void getOrderCompleteInfoTest() {
+	public void getOrderCancle() {
 		
-	    OrderDTO order = orderMapper.getOrderCompleteInfo("bb_2024013103");
-	    log.info(order);
+	    orderMapper.orderCancel("bb_2024020140");
 	}
 	
 }

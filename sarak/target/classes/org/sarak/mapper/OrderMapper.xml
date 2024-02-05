@@ -78,4 +78,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        o.orderid = #{orderid}
 	</select>
 	
+	<!-- 페이징 처리된 주문 목록 가져오기 -->
+	<select id="getOrderListWithPaging" resultMap="orderMap">
+	    <![CDATA[
+	        SELECT *
+	        FROM (
+	            SELECT
+	                rownum rn, o.orderid, ordername, mid, orderphone, orderpostcode, orderaddress, orderstate, orderdate, totalprice, bid, odetailquan, odetailprice, doreview, bname
+	            FROM (
+	                 SELECT 
+				        o.orderid, o.ordername, o.mid, o.orderphone, o.orderpostcode, o.orderaddress, o.orderstate, o.orderdate, o.totalprice, d.bid, d.odetailquan, d.odetailprice, d.doreview, b.bname
+				     FROM
+				        tbl_order o
+				        LEFT OUTER JOIN tbl_orderdetail d on o.orderid = d.orderid
+				        LEFT OUTER JOIN tbl_book b on d.bid = b.bid
+	            ) o
+	            WHERE rownum <= #{pageNum} * #{amount}
+	        )
+	        WHERE rn > (#{pageNum} - 1) * #{amount}
+	    ]]>
+	</select>
+	
+	<!-- 페이징 처리된 주문 목록 가져오기 -->
+	<select id="getOrderTotalCount" resultType="int">
+	    <![CDATA[
+	    SELECT COUNT(*)
+        FROM (
+            SELECT 
+                 o.orderid
+            FROM
+                tbl_order o
+        )  
+	    ]]>
+	</select>
+	
+	<update id="orderCancel">
+   		update tbl_order
+   		set orderstate = '주문취소'
+   		where orderid = #{orderid, jdbcType=VARCHAR}
+   </update>
+	
 </mapper>

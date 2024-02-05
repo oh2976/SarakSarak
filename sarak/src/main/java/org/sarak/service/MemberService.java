@@ -3,6 +3,7 @@ package org.sarak.service;
 import java.util.List;
 
 import org.sarak.domain.AuthVO;
+import org.sarak.domain.Criteria;
 import org.sarak.domain.MemberVO;
 
 public interface MemberService {
@@ -14,9 +15,14 @@ public interface MemberService {
 	public boolean modifyMember(MemberVO member);
 	public boolean modifyAuth(AuthVO auth);
 	
+	public boolean modifyPassword(MemberVO member);
+	
 	public boolean removeMember(String mid);
 	
 	public List<MemberVO> getList();
+	
+	public List<MemberVO> getMemberList(Criteria cri);
+	public int getTotal(Criteria cri);
 	
 	
 }

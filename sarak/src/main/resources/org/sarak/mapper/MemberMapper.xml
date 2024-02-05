@@ -74,6 +74,11 @@
    		where mid = #{mid, jdbcType=VARCHAR}
    </update>
 
+   <update id="updatePwd">
+   		update tbl_member
+   		set mpw = #{mpw, jdbcType=VARCHAR}
+   		where mid = #{mid, jdbcType=VARCHAR}
+   </update>
     
     <select id = "getListWithPaging" resultMap="memberMap">
     	<![CDATA[

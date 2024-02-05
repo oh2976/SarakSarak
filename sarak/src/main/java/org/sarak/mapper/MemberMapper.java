@@ -16,11 +16,13 @@ public interface MemberMapper {
 	public List<MemberVO> getList();
 	
 	public List<MemberVO> getListWithPaging(Criteria cri);
+	public int getTotalCount(Criteria cri);
 	
 	public int delete(String mid);
 	public int deleteAuth(String mid);
 
 	public int update(MemberVO member);
 	public int updateAuth(AuthVO auth);
+	public int updatePwd(MemberVO member);
 
 }
