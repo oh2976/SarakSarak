@@ -68,16 +68,24 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List<MemberVO> getMemberList(Criteria cri) {
+	public List<MemberVO> getListWithPaging(Criteria cri) {
+		
+		log.info("getListWithPaging...");
 		
 		return memberMapper.getListWithPaging(cri);
+		
+	}
+	
+	@Override
+	public int memberGetTotal(Criteria cri) {
+		
+		log.info("memberGetTotal..." + cri);
+		
+		return memberMapper.memberGetTotal(cri);
+		
 	}
 
-	@Override
-	public int getTotal(Criteria cri) {
-		
-		return memberMapper.getTotalCount(cri);
-	}
+
 
 
 

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.sarak.mapper.AdminMapper">
+
+	<!-- 1. 도서 목록 (with 페이징) -->
+	<select id="bookGetList" resultType="org.sarak.domain.BookVO">
+		<![CDATA[
+			select bid, bname, bprice, isbn, pubdate, publisher
+			from
+				(
+				select /*+INDEX_DESC(tbl_book pk_book)*/
+					rownum rn, bid, bname, bprice, isbn, pubdate, publisher
+				from
+					tbl_book
+				where rownum <= #{pageNum} * #{amount}
+				)
+			where rn > (#{pageNum} - 1) * #{amount}
+		]]>
+	</select>
+	
+	<!-- 2. 도서 총 수 -->
+	<select id="bookGetTotal" resultType="int">
+		select count(*) from tbl_book
+	</select>
+
+	<!-- 3. 도서 등록 -->
+	<insert id="bookInsert">
+		insert into tbl_book (bid, bname, bprice, isbn, pubdate, publisher, authorid, summary, contents)
+		values (seq_book.nextval, #{bname}, #{bprice}, #{isbn}, #{pubdate}, #{publisher}, #{authorid}, #{summary}, #{contents})
+	</insert>
+	
+	<!-- 4. 도서 등록과 동시에 stock 데이터 생성 -->
+	<insert id="bookStockInsert">
+        insert into tbl_book_stock (bid, stock) values (seq_book.currval, 100)
+    </insert>
+	
+	<!-- 5. 도서 정보 수정 -->
+	<update id="bookModify">
+		update tbl_book set bname = #{bname},
+							bprice = #{bprice},
+							isbn = #{isbn},
+							pubdate = #{pubdate},
+							publisher = #{publisher},
+							authorid = #{authorid},
+							summary = #{summary},
+							contents = #{contents}
+		where bid = #{bid}
+	</update>
+	
+	<!-- 6. 재고 수정 -->
+	<update id="bookStockModify">
+		update tbl_book_stock set stock = #{stock} where bid = #{bid}
+	</update>
+	
+	<!-- 7. 도서 삭제 -->
+	<delete id="bookDelete">
+		delete from tbl_book where bid = #{bid}
+	</delete>
+	
+	<!-- 8. 재고 삭제 -->
+	<delete id="bookStockDelete">
+		delete from tbl_book_stock where bid = #{bid}
+	</delete>
+	
+	<!-- 9. 주문 목록 (with 페이징) -->
+	<select id="orderGetList" resultType="org.sarak.domain.OrderDTO">
+		<![CDATA[
+			select orderid, mid, orderdate, totalprice, orderstate, ordername, orderphone, orderpostcode, orderaddress
+			from
+				(
+				select /*+INDEX_DESC(tbl_order pk_order)*/
+					rownum rn, orderid, mid, orderdate, totalprice, orderstate, ordername, orderphone, orderpostcode, orderaddress
+				from
+					tbl_order
+				where rownum <= #{pageNum} * #{amount}
+				)
+			where rn > (#{pageNum} - 1) * #{amount}
+		]]>
+	</select>
+	
+	<!-- 10. 주문 총 수 -->
+	<select id="orderGetTotal" resultType="int">
+		select count(*) from tbl_order
+	</select>
+	
+	<!-- 11. 주문 상태 변경 -->
+	<update id="orderstateUpdate">
+		update tbl_order set orderstate = #{orderstate} where orderid = #{orderid}
+	</update>
+	
+	<!-- 12. 도서 이미지 개별 삭제 -->
+	<delete id="deleteEachImg">
+		delete from tbl_book_img where filename = #{filename}
+	</delete>
+
+</mapper>

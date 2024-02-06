@@ -21,8 +21,8 @@ public interface MemberService {
 	
 	public List<MemberVO> getList();
 	
-	public List<MemberVO> getMemberList(Criteria cri);
-	public int getTotal(Criteria cri);
+	public List<MemberVO> getListWithPaging(Criteria cri);
 	
+	public int memberGetTotal(Criteria cri);
 	
 }

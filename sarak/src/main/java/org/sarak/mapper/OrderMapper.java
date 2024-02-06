@@ -42,5 +42,7 @@ public interface OrderMapper {
 	/* 주문 취소 */
 	public int orderCancel(String orderid);
 	
+	public List<OrderDetailDTO> orderGetDetail(String orderid);
+	
 
 }

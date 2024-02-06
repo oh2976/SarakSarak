@@ -8,7 +8,7 @@ public interface BookAttachMapper {
 	
 	public void insert(BookAttachVO vo);
 	
-	public void delete(int bid);
+	public void deleteAll(int bid);    // 해당 bid의 이미지 전체 삭제
 	
 	public List<BookAttachVO> findByBid(int bid);
 
