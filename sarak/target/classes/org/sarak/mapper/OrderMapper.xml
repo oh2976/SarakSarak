@@ -79,7 +79,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 페이징 처리된 주문 목록 가져오기 -->
-	<select id="getOrderListWithPaging" resultMap="orderMap">
+	
+	<select id="getOrderListWithPaging" resultMap="orderMap" parameterType="Map">
 	    <![CDATA[
 	        SELECT *
 	        FROM (
@@ -92,12 +93,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				        tbl_order o
 				        LEFT OUTER JOIN tbl_orderdetail d on o.orderid = d.orderid
 				        LEFT OUTER JOIN tbl_book b on d.bid = b.bid
+				    
 	            ) o
-	            WHERE rownum <= #{pageNum} * #{amount}
+	            WHERE o.mid = #{mid} AND rownum <= #{pageNum} * #{amount}
 	        )
 	        WHERE rn > (#{pageNum} - 1) * #{amount}
 	    ]]>
 	</select>
+
+	
+	
+		<!-- 페이징 처리된 주문 목록 가져오기 	<select id="getOrderListWithPaging" resultMap="orderMap" parameterType="map">
+	    <![CDATA[
+
+	                 SELECT 
+				        o.orderid, o.ordername, o.mid, o.orderphone, o.orderpostcode, o.orderaddress, o.orderstate, o.orderdate, o.totalprice, d.bid, d.odetailquan, d.odetailprice, d.doreview, b.bname
+				     FROM
+				        tbl_order o
+				        LEFT OUTER JOIN tbl_orderdetail d on o.orderid = d.orderid
+				        LEFT OUTER JOIN tbl_book b on d.bid = b.bid
+	            WHERE o.mid = #{mid} 
+	    ]]>
+	</select> -->
+
 	
 	<!-- 페이징 처리된 주문 목록 가져오기 -->
 	<select id="getOrderTotalCount" resultType="int">
@@ -108,6 +126,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                  o.orderid
             FROM
                 tbl_order o
+            WHERE o.mid = #{mid}
         )  
 	    ]]>
 	</select>

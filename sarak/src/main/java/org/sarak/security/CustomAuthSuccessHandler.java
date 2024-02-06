@@ -24,7 +24,7 @@ public class CustomAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHand
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException {
     	
-    	// 이전 url로 redirect
+    	
     	String prevPage = (String) request.getSession().getAttribute("prevPage");
     	
     	redirectStrategy.sendRedirect(request, response, prevPage);

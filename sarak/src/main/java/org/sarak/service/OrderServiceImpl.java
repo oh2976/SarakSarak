@@ -3,7 +3,9 @@ package org.sarak.service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.sarak.domain.BookAttachVO;
 import org.sarak.domain.BookSalesVO;
@@ -142,13 +144,26 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public List<OrderDTO> getOrderList(Criteria cri) {
-		return orderMapper.getOrderListWithPaging(cri);
+	public List<OrderDTO> getOrderList(Criteria cri, String mid) {
+		
+
+	    Map<String, Object> parameters = new HashMap<>();
+	    parameters.put("pageNum", cri.getPageNum());
+	    parameters.put("amount", cri.getAmount());
+	    parameters.put("mid", mid);
+	    
+		return orderMapper.getOrderListWithPaging(parameters);
+		
+		
 	}
 
 	@Override
-	public int getOrderTotal(Criteria cri) {
-		return orderMapper.getOrderTotalCount(cri);
+	public int getOrderTotal(Criteria cri, String mid) {
+	    Map<String, Object> parameters = new HashMap<>();
+	    parameters.put("pageNum", cri.getPageNum());
+	    parameters.put("amount", cri.getAmount());
+	    parameters.put("mid", mid);
+		return orderMapper.getOrderTotalCount(parameters);
 	}
 
 	@Override

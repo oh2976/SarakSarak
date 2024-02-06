@@ -58,12 +58,16 @@
 				<a href="/register">회원가입</a> 
    			 </sec:authorize>
    			 <sec:authorize access="isAuthenticated()">
-   			 	<a href="/customLogout">로그아웃</a> 
+   			 	<a href="#" onclick="document.getElementById('logout').submit();">로그아웃</a> 
    			 	<a href="">${principal.member.mname }</a> 
    			 </sec:authorize>
 				<a href="#">고객센터</a>
 			</div>
 		</div>
+		
+		<form id="logout" action="/customLogout" method="POST">
+		   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+		</form>
 			
 			<div class="headerNav">
 				<a href="/sarak/main" class="mainHeder">

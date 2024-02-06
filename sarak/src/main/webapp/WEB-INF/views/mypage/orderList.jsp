@@ -134,6 +134,15 @@
 	     </c:if>      	
 	       	
 			<!-- 페이징 영역 시작 -->
+			
+			<c:if test="${listCheck == 'empty'}">
+				<div class="empty-orderList">
+					<img src="../resources/img/empty.png">
+					<p>주문 내역이 없습니다.</p>
+				</div>
+			</c:if>
+			
+			<c:if test="${listCheck != 'empty'}">
 							<div class="pull-right">
 								<ul class="pagination">
 									<c:if test="${pageMaker.prev}">
@@ -156,7 +165,9 @@
 								<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 								<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
 							</form>
-							<!-- 페이징 영역 끝 -->	       		
+							<!-- 페이징 영역 끝 -->	     
+							
+			</c:if>  		
 	       			
 
 	       	</div>

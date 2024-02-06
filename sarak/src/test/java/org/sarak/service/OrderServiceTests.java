@@ -19,18 +19,18 @@ public class OrderServiceTests {
 	@Setter(onMethod_ = {@Autowired})
 	private OrderService orderService;
 	
-//	@Test
-//	public void testOrderList() {
-//		
-//		orderService.getOrderList(new Criteria(2, 10)).forEach(order -> log.info(order));
-//		
-//	}
-	
 	@Test
-	public void testOrderCancle() {
-		OrderCancelDTO dto = new OrderCancelDTO();
-		dto.setMid("bb");
-		dto.setOrderid("bb_2024020132");
-		orderService.orderCancel(dto);
+	public void testOrderList() {
+		
+		orderService.getOrderList(new Criteria(1, 10), "bb").forEach(order -> log.info(order));
+		
 	}
+	
+//	@Test
+//	public void testOrderCancle() {
+//		OrderCancelDTO dto = new OrderCancelDTO();
+//		dto.setMid("bb");
+//		dto.setOrderid("bb_2024020132");
+//		orderService.orderCancel(dto);
+//	}
 }

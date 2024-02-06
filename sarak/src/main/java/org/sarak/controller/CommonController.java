@@ -56,41 +56,35 @@ public class CommonController {
 			
 			memberService.registerMember(memberVo, authVo);
 			
-		return "redirect:/index/main";
+		return "redirect:/sarak/main";
 		
 	}
 	
 	@GetMapping("/customLogin")
 	public void loginInput(String error, String logout, Model model, HttpServletRequest request) {
-		log.info("error : " + error);
-		log.info("logout : " + logout);
-		
-		
-		/* 로그인 성공 시 이전 페이지로 이동 */
-		String uri = request.getHeader("Referer");
-		
-		// 이전 uri가 null이다 -> 배포 서버에서 나타나는 오류?
-		if (uri==null) {
-			// null일시 이전 페이지에서 addFlashAttribute로 보내준 uri을 저장
-			Map<String, ?> paramMap = RequestContextUtils.getInputFlashMap(request);
-			uri = (String) paramMap.get("referer");
-			
-			// 이전 url 정보 담기
-			request.getSession().setAttribute("prevPage", uri);
+	    log.info("error : " + error);
+	    log.info("logout : " + logout);
 
-		}else {
-			// 이전 url 정보 담기
-			request.getSession().setAttribute("prevPage", uri);
-		}	
-	
-		
-		if(error != null) {
-			model.addAttribute("error", "Login Error Check Your Account");
-		} 
-		
-		if(logout != null) {
-			model.addAttribute("logout", "Logout!!");
-		} 
+	    
+	    if (error == null && logout == null) {
+	        String uri = request.getHeader("Referer");
+	        
+	        if (uri == null) {
+	            
+	            Map<String, ?> paramMap = RequestContextUtils.getInputFlashMap(request);
+	            uri = (String) paramMap.get("referer");
+	        }
+	        
+	        request.getSession().setAttribute("prevPage", uri);
+	    }
+
+	    if (error != null) {
+	        model.addAttribute("error", "Login Error Check Your Account");
+	    }
+
+	    if (logout != null) {
+	        model.addAttribute("logout", "Logout!!");
+	    }
 	}
 	
 	@GetMapping("/customLogout")

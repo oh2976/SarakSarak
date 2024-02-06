@@ -38,12 +38,12 @@ public class MypageController {
 	@GetMapping("/orderList")
 	public void orderList(@RequestParam("mid") String mid, Criteria cri, Model model) {
 		
-		List<OrderDTO> list = orderService.getOrderList(cri);
+		List<OrderDTO> list = orderService.getOrderList(cri, mid);
 		
 		if(!list.isEmpty()) {
 			model.addAttribute("list", list);
 			log.info(cri);
-			int total = orderService.getOrderTotal(cri);
+			int total = orderService.getOrderTotal(cri, mid);
 			log.info(total);
 			model.addAttribute("pageMaker", new PageDTO(cri, total));
 		} else {
