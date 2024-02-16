@@ -88,7 +88,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				        tbl_order o
 				        LEFT OUTER JOIN tbl_orderdetail d on o.orderid = d.orderid
 				        LEFT OUTER JOIN tbl_book b on d.bid = b.bid
-				    
+				    ORDER BY orderdate DESC
 	            ) o
 	            WHERE o.mid = #{mid} AND rownum <= #{pageNum} * #{amount}
 	        )
