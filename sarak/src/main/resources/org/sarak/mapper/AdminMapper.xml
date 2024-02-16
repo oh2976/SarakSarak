@@ -67,16 +67,16 @@
 	<!-- 9. 주문 목록 (with 페이징) -->
 	<select id="orderGetList" resultType="org.sarak.domain.OrderDTO">
 		<![CDATA[
-			select orderid, mid, orderdate, totalprice, orderstate, ordername, orderphone, orderpostcode, orderaddress
-			from
-				(
-				select /*+INDEX_DESC(tbl_order pk_order)*/
-					rownum rn, orderid, mid, orderdate, totalprice, orderstate, ordername, orderphone, orderpostcode, orderaddress
-				from
-					tbl_order
-				where rownum <= #{pageNum} * #{amount}
-				)
-			where rn > (#{pageNum} - 1) * #{amount}
+			select * from (
+	            select rownum rn, orderid, mid, orderdate, totalprice, orderstate, ordername, orderphone, orderpostcode, orderaddress
+	            from (
+	                select orderid, mid, orderdate, totalprice, orderstate, ordername, orderphone, orderpostcode, orderaddress
+	                from tbl_order 
+	                order by orderdate desc
+	            )
+	            where rownum <= #{pageNum} * #{amount}
+	        )
+	        where rn > (#{pageNum} - 1) * #{amount}
 		]]>
 	</select>
 	
@@ -93,6 +93,25 @@
 	<!-- 12. 도서 이미지 개별 삭제 -->
 	<delete id="deleteEachImg">
 		delete from tbl_book_img where filename = #{filename}
+	</delete>
+	
+	<!-- 13. 회원의 모든 주문, 주문 상세 내역 삭제 (회원 삭제 시) -->
+	<delete id="orderDetailDeleteByOrderid">
+		delete from tbl_orderdetail where orderid = #{orderid}
+	</delete>
+	
+	<delete id="orderDeleteByMid">
+		delete from tbl_order where mid = #{mid}
+	</delete>
+	
+	<!-- 14. 도서 등록과 동시에 판매량 데이터 생성 -->
+	<insert id="bookSalesInsert">
+		insert into tbl_book_sales (bid, sales) values (seq_book.currval, 0)
+	</insert>
+	
+	<!-- 15. 판매량 삭제 -->
+	<delete id="bookSalesDelete">
+		delete from tbl_book_sales where bid = #{bid}
 	</delete>
 
 </mapper>

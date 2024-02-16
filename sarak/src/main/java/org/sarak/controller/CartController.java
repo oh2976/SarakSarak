@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -33,9 +32,7 @@ public class CartController {
 	@Autowired
 	private CartService cartService;
 	
-	
 	// 장바구니 추가
-	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/add")
 	@ResponseBody
 	public String addCartPost(@RequestParam("bookId") int bookId, @RequestParam("quantity") int quantity, Principal principal) {
@@ -43,8 +40,11 @@ public class CartController {
 		String username = principal.getName();
 		
 		CartDTO cartDTO = new CartDTO();
+		
 		cartDTO.setMid(username);
+		
 		cartDTO.setBid(bookId);
+		
 		cartDTO.setCartquan(quantity);
 		
 		int result = cartService.insertCart(cartDTO);
@@ -53,9 +53,7 @@ public class CartController {
 
 	}
 	
-	
 	// 장바구니 목록
-	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/cartList")
 	public String getCartList(Principal principal, Model model) {
 		
@@ -67,16 +65,15 @@ public class CartController {
 		
 		log.info(cartList);
 		
-		return "cartList";
+		return "sarak/cartList";
 		
 	}
-	
+	 
 	// 장바구니 삭제
-	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/delete", method= {RequestMethod.GET, RequestMethod.POST})
 	public String deleteCartPost(@RequestParam("cartid") int cartid, CartDTO cartDTO) {
 		
-		log.info("####### 요청 장바구니 ID " + cartid);
+		log.info("deleteCart " + cartid);
 		
 		cartService.deleteCart(cartid);
 		
@@ -85,7 +82,6 @@ public class CartController {
 	}
 	
 	// 수량 변경
-	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/update")
 	public String updateCartPost(@RequestParam("cartid") int cartid, @RequestParam("quantity") int quantity, Principal principal) {
 		

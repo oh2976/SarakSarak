@@ -4,45 +4,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.sarak.mapper.OrderMapper">    <!-- OrderMapper interface의 메서드들에 대한 SQL 매핑 -->
 
-	<!-- 주문 상품 정보 -->
+	<!-- 1. 주문 상품 정보 -->
 	<select id="getBooksInfo" resultType="org.sarak.domain.OrderPageItemDTO">
 		select bid, bname, bprice
 		from tbl_book where bid = #{bid}
 	</select>
 	
 	<select id="getOrderInfo" resultType="org.sarak.domain.OrderDetailDTO">
-	
 		select bid, bprice AS odetailprice
 		from tbl_book where bid = #{bid}
-		
 	</select>
 	
-		<!-- 주문 테이블 등록 -->
+	<!-- 2. 주문 등록 -->
 	<insert id="enrollOrder">
-	
 		insert into tbl_order(orderid, ordername, mid, orderphone, orderpostcode, orderaddress, orderstate, totalprice)
     	values(#{orderid}, #{ordername}, #{mid}, #{orderphone}, #{orderpostcode}, #{orderaddress}, '배송준비중', #{totalprice})
-	
 	</insert>
 	
-	<!-- 주문 도서 테이블 등록 -->
+	<!-- 3. 주문 상세 등록 -->
 	<insert id="enrollOrderDetail">
 		insert into tbl_orderdetail(orderid, bid, odetailquan, odetailprice, doreview )
 		values(#{orderid}, #{bid}, #{odetailquan}, #{odetailprice}, 'N')
-	
 	</insert>
 	
-	<!-- 주문 재고 차감 -->
+	<!-- 4. 주문 후 재고 차감 -->
 	<update id="deductStock">
 		update tbl_book_stock set stock = #{stock, jdbcType=DOUBLE} where bid = #{bid, jdbcType=DOUBLE}
 	</update>
 	
-	<!-- 판매량 누적 -->
+	<!-- 5. 주문 후 판매량 누적 -->
 	<update id="inductSales">
 		update tbl_book_sales set sales = #{sales, jdbcType=DOUBLE} where bid = #{bid, jdbcType=DOUBLE}
 	</update>
 	
-	
+	<!-- 6. 주문 resultMap -->
 	<resultMap type="org.sarak.domain.OrderDTO" id="orderMap">
 		<id property="orderid" column="orderid"/>
 		<result property="ordername" column="ordername"/>
@@ -57,6 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</collection>
 	</resultMap>
 	
+	<!-- 7. 주문 상세 resultMap -->
 	<resultMap type="org.sarak.domain.OrderDetailDTO" id="detailMap">
 		<result property="orderid" column="orderid"/>
 		<result property="bid" column="bid"/>
@@ -66,7 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="doreview" column="doreview"/>
 	</resultMap>
 	
-	
+	<!-- 8. 주문 완료 정보 -->
 	<select id="getOrderCompleteInfo" resultMap="orderMap">
 	    SELECT
 	        o.orderid, o.ordername, o.mid, o.orderphone, o.orderpostcode, o.orderaddress, o.orderstate, o.orderdate, o.totalprice, d.bid, d.odetailquan, d.odetailprice, d.doreview, b.bname
@@ -78,8 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        o.orderid = #{orderid}
 	</select>
 	
-	<!-- 페이징 처리된 주문 목록 가져오기 -->
-	
+	<!-- 9. 페이징 처리된 주문 목록 가져오기 -->
 	<select id="getOrderListWithPaging" resultMap="orderMap" parameterType="Map">
 	    <![CDATA[
 	        SELECT *
@@ -100,44 +95,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        WHERE rn > (#{pageNum} - 1) * #{amount}
 	    ]]>
 	</select>
-
 	
-	
-		<!-- 페이징 처리된 주문 목록 가져오기 	<select id="getOrderListWithPaging" resultMap="orderMap" parameterType="map">
-	    <![CDATA[
-
-	                 SELECT 
-				        o.orderid, o.ordername, o.mid, o.orderphone, o.orderpostcode, o.orderaddress, o.orderstate, o.orderdate, o.totalprice, d.bid, d.odetailquan, d.odetailprice, d.doreview, b.bname
-				     FROM
-				        tbl_order o
-				        LEFT OUTER JOIN tbl_orderdetail d on o.orderid = d.orderid
-				        LEFT OUTER JOIN tbl_book b on d.bid = b.bid
-	            WHERE o.mid = #{mid} 
-	    ]]>
-	</select> -->
-
-	
-	<!-- 페이징 처리된 주문 목록 가져오기 -->
+	<!-- 10. 페이징 처리를 위한 전체 주문의 수 -->
 	<select id="getOrderTotalCount" resultType="int">
 	    <![CDATA[
-	    SELECT COUNT(*)
-        FROM (
-            SELECT 
-                 o.orderid
-            FROM
-                tbl_order o
-            WHERE o.mid = #{mid}
-        )  
+		    SELECT COUNT(*)
+	        FROM (
+	            SELECT 
+	                 o.orderid
+	            FROM
+	                tbl_order o
+	            WHERE o.mid = #{mid}
+	        )  
 	    ]]>
 	</select>
 	
+	<!-- 11. 주문 취소 시 주문상태 수정 -->
 	<update id="orderCancel">
-   		update tbl_order
-   		set orderstate = '주문취소'
-   		where orderid = #{orderid, jdbcType=VARCHAR}
-   </update>
-   
-   	<select id="orderGetDetail" resultMap="detailMap">
+		update tbl_order
+		set orderstate = '주문취소'
+		where orderid = #{orderid, jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 12. 주문 상세 정보 -->
+	<select id="orderGetDetail" resultMap="detailMap">
 		select
 			d.orderid, d.bid, d.odetailquan, d.odetailprice, d.doreview, b.bname
 		from
@@ -145,6 +126,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			left outer join tbl_book b on d.bid = b.bid
 		where
 			d.orderid = #{orderid}
+	</select>
+	
+	<!-- 13. 회원 삭제 시 회원의 주문 정보 삭제를 위해 해당 회원의 모든 주문 정보 가져오기 -->
+	<select id="getOrderListByMid" resultMap="orderMap">
+		select orderid, mid from tbl_order where mid = #{mid}
 	</select>
 	
 </mapper>

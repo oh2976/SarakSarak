@@ -1,12 +1,7 @@
 package org.sarak.service;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
 
-import org.sarak.domain.AuthorVO;
 import org.sarak.domain.BookVO;
 import org.sarak.domain.Criteria;
 import org.sarak.domain.OrderDTO;
@@ -75,6 +70,8 @@ public class AdminServiceImpl implements AdminService {
 		
 		adminMapper.bookStockInsert(bookVO);
 		
+		adminMapper.bookSalesInsert(bookVO);
+		
 	}
 	
 	@Transactional
@@ -98,6 +95,8 @@ public class AdminServiceImpl implements AdminService {
 		bookAttachMapper.deleteAll(bid);
 		
 		adminMapper.bookStockDelete(bid);
+		
+		adminMapper.bookSalesDelete(bid);
 		
 		adminMapper.bookDelete(bid);
 		

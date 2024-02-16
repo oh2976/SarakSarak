@@ -3,131 +3,134 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
-	<head>
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    
-    <link rel="stylesheet" href="../resources/dist/css/bookDetail.css">
-     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+   
+   	<link rel="stylesheet" href="../resources/dist/css/bookDetail.css">
+   	
+   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   
     <script type="text/javascript">
-		$(document).ready(function() {
+	$(document).ready(function() {
+		
+		// 수량 선택 : 증감에 따른 총 상품 가격 변동 함수
+		function updateTotalPrice() {
 			
-			// 수량 선택 : 증감에 따른 총 상품 가격 변동 함수
-			function updateTotalPrice() {
-				
-				var bprice = ${bookVO.bprice};
-				var quan = $(".quantity").val();
-				var totalPrice = bprice * quan;
-				
-				$(".total-price").text(totalPrice.toLocaleString() + "원");
-				
-			}
+			var bprice = ${bookVO.bprice};
+			var quan = $(".quantity").val();
+			var totalPrice = bprice * quan;
 			
-			// 수량 선택 : 플러스 버튼 클릭 함수
-			$(".plus").click(function() {
-				
-				var quan = $(".quantity").val();
-				var plusQuan = Number(quan) + 1;
-				
-				if (plusQuan >= 10) {
-					
-					$(".quantity").val(quan);
-					
-				} else {
-					
-					$(".quantity").val(plusQuan);
-					
-					updateTotalPrice();
-					
-				}
-				
-			});
+			$(".total-price").text(totalPrice.toLocaleString() + "원");
 			
-			// 수량 선택 : 마이너스 버튼 클릭 함수
-			$(".minus").click(function() {
-				
-				var quan = $(".quantity").val();
-				var minusQuan = Number(quan) - 1;
-				
-				if (minusQuan <= 0) {
-					
-					$(".quantity").val(quan);
-					
-				} else {
-					
-					$(".quantity").val(minusQuan);
-					
-					updateTotalPrice();
-					
-				}
-				
-			});
+		}
+		
+		// 수량 선택 : 플러스 버튼 클릭 함수
+		$(".plus").click(function() {
 			
-			// 수량이 변경될 때마다 updateTotalPrice() 함수 호출
-			$(".quantity").on("input", function() {
+			var quan = $(".quantity").val();
+			var plusQuan = Number(quan) + 1;
+			
+			if (plusQuan >= 10) {
+				
+				$(".quantity").val(quan);
+				
+			} else {
+				
+				$(".quantity").val(plusQuan);
 				
 				updateTotalPrice();
 				
-			});
-			
-			// 바로 구매 버튼
-			$(".buynow").on("click", function(){
-				let bookCount = $(".quantity").val();
-				$(".order_form").find("input[name='orders[0].bookCount']").val(bookCount);
-				$(".order_form").submit();
-			});
-			
-			// 장바구니 담기 버튼
-			$(".cart").on("click", function(e) {
-				<sec:authorize access="isFullyAuthenticated()">
-					var bookId = ${bookVO.bid};
-			        var quantity = $(".quantity").val();
-	
-			        // AJAX를 사용하여 서버로 데이터 전송
-			        $.ajax({
-			            type: "POST",
-			            url: "/cart/add",
-			            data: { bookId: bookId, quantity: quantity, ${_csrf.parameterName}: '${_csrf.token}' },
-			            success: function(response) {
-			                alert("해당 상품이 장바구니에 추가되었습니다.");
-			            },
-			            error: function() {
-			                alert("상품을 장바구니에 추가하는데 실패했습니다.")
-			            }
-			        });
-		        </sec:authorize>
-					
-				<sec:authorize access="isAnonymous()">
-		            alert("로그인이 필요합니다.");
-		        </sec:authorize>
-				
-			});
+			}
 			
 		});
-	</script>
-    
-    <title>도서 상세 페이지</title>
-    
-    </head>
-    
-    <body>
-		<!-- 전체 페이지 영역 시작 -->
-		<div class="sarakMainWrapper">
-			<!-- 헤더 영역 시작 -->
-			<%@ include file="../includes/header.jsp" %>
-			<!-- 헤더 영역 끝 -->
+		
+		// 수량 선택 : 마이너스 버튼 클릭 함수
+		$(".minus").click(function() {
 			
-			<!-- 미들 영역 시작 -->
-			<div class="sarakMiddleArea">
-				<!-- 도서 상세 정보 -->
+			var quan = $(".quantity").val();
+			var minusQuan = Number(quan) - 1;
+			
+			if (minusQuan <= 0) {
 				
+				$(".quantity").val(quan);
+				
+			} else {
+				
+				$(".quantity").val(minusQuan);
+				
+				updateTotalPrice();
+				
+			}
+			
+		});
+		
+		// 수량이 변경될 때마다 updateTotalPrice() 함수 호출
+		$(".quantity").on("input", function() {
+			
+			updateTotalPrice();
+			
+		});
+		
+		// 장바구니 담기 버튼
+		$(".cart").on("click", function(e) {
+	
+			<sec:authorize access="isFullyAuthenticated()">
+				var bookId = ${bookVO.bid};
+		        var quantity = $(".quantity").val();
+	
+		        // AJAX를 사용하여 서버로 데이터 전송
+		        $.ajax({
+		            type: "POST",
+		            url: "/cart/add",
+		            data: { bookId: bookId, quantity: quantity, ${_csrf.parameterName}: '${_csrf.token}' },
+		            success: function(response) {
+		                alert("해당 상품이 장바구니에 추가되었습니다.");
+		                
+		                window.location.href = "/cart/cartList";
+		            },
+		            error: function() {
+		                alert("상품을 장바구니에 추가하는데 실패했습니다.")
+		            }
+		        });
+	        </sec:authorize>
+				
+			<sec:authorize access="isAnonymous()">
+	            alert("로그인이 필요합니다.");
+	        </sec:authorize>
+			
+		});
+		
+		// 바로 구매 버튼
+		$(".buynow").on("click", function(){
+			
+			let bookCount = $(".quantity").val();
+			
+			$(".order_form").find("input[name='orders[0].bookCount']").val(bookCount);
+			
+			$(".order_form").submit();
+		
+		});
+		
+	});
+	</script>
+	<title>도서 상세 페이지</title>
+</head>
+<body>
+	<!-- 전체 페이지 영역 시작 -->
+	<div class="sarakMainWrapper">
+		<!-- 헤더 영역 시작 -->
+		<%@ include file="../includes/header.jsp" %>
+		<!-- 헤더 영역 끝 -->
+		<!-- 미들 영역 시작 -->
+		<div class="sarakMiddleArea">
+			<!-- 도서 상세 정보 -->
+			<c:if test="${not empty bookVO}">
 				<div class="content-wrapper">
 					<div class="main-content">
 						<div class="book-allinfo">
@@ -196,13 +199,12 @@
 									${bookVO.publisher} | <fmt:formatDate value="${bookVO.pubdate}" pattern="yyyy년 MM월 dd일"/>
 								</div>
 								
-								<div class="btn-group">
+								<div class="btnGroup">
 									<div class="cartbtn">
-										<input type="button" class="cart" name="btn" value="장바구니"></button>
+										<input type="button" class="cart" name="btn" value="장바구니">
 									</div>
-								
 									<div class="buynowbtn">
-										<input type="button" class="buynow" name="btn" value="바로구매"></button>
+										<input type="button" class="buynow" name="btn" value="바로구매">
 									</div>
 								</div>
 							</div>
@@ -210,12 +212,10 @@
 						
 						<!-- 주문 form -->
 						<form action="/sarak/order/" method="get" class="order_form">
-						
 							<input type="hidden" name="mid" value="${principal.member.mid }">
 							<input type="hidden" name="orders[0].bid" value="${bookVO.bid }">
 							<input type="hidden" name="orders[0].bookCount" value="">
 						</form>
-						
 						
 						<div class="separator"></div>
 						
@@ -240,14 +240,16 @@
 							<div class="separator"></div>
 							
 							<div class="subheading">작가 소개</div>
-								<div class="authorinfo">
-									<div class="authorinfo-name">
-										저자(글) ${bookVO.authorname}
-									</div>
-									<div class="authorinfo-desc">
-										${fn:replace(bookVO.authordesc, '\\n', ' ')}
-									</div>
+							<div class="authorinfo">
+								<div class="authorinfo-name">
+									저자(글) ${bookVO.authorname}
 								</div>
+								<div class="authorinfo-desc">
+									${fn:replace(bookVO.authordesc, '\\n', ' ')}
+								</div>
+							</div>
+							
+							<div class="separator"></div>
 							
 							<div class="subheading">목차</div>
 							<div class="contents">
@@ -302,13 +304,13 @@
 						</div>
 					</div>
 				</div>
-				
-			</div>
-			<!-- 미들 영역 끝 -->
-			
-			<!-- footer 영역 시작 -->
-			<%@ include file="../includes/footer.jsp" %>
-			<!-- footer 영역 끝 -->
-			
+			</c:if>
 		</div>
-		<!-- 전체 페이지 영역 끝 -->
+		<!-- 미들 영역 끝 -->
+			
+		<!-- footer 영역 시작 -->
+		<%@ include file="../includes/footer.jsp" %>
+		<!-- footer 영역 끝 -->
+			
+	</div>
+	<!-- 전체 페이지 영역 끝 -->

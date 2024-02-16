@@ -5,8 +5,6 @@ import java.util.Map;
 
 import org.sarak.domain.BookSalesVO;
 import org.sarak.domain.BookStockVO;
-import org.sarak.domain.BookVO;
-import org.sarak.domain.Criteria;
 import org.sarak.domain.OrderDTO;
 import org.sarak.domain.OrderDetailDTO;
 import org.sarak.domain.OrderPageItemDTO;
@@ -43,7 +41,10 @@ public interface OrderMapper {
 	/* 주문 취소 */
 	public int orderCancel(String orderid);
 	
+	/* 관리자 - 주문 상세 정보 */
 	public List<OrderDetailDTO> orderGetDetail(String orderid);
 	
-
+	/* 회원 삭제 시 회원의 주문 정보 삭제를 위해 해당 회원의 모든 주문 정보 가져오기 */
+	public List<OrderDTO> getOrderListByMid(String mid);
+	
 }

@@ -7,12 +7,11 @@
 
 	<head>
 
-    <link rel="stylesheet" href="../../resources/dist/css/bestBook.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <script type="text/javascript">
-
+		<link rel="stylesheet" href="../../resources/dist/css/bestBook.css">
+	
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	    
+	    <script type="text/javascript">
 		function loadJson() {    // 도서 목록 비동기
 			$.ajax({
 				url: '<c:url value="/allBookListAjax"/>',
@@ -100,29 +99,32 @@
 		        
 		    });
 			
-			// 바로 구매 버튼
 			$(".buynow").on("click", function(){
-				// 클릭한 바로구매 상품의 bid 가져오기
-				let bid = 0;
-				bid = parseInt($(".buynowBid").val());
-				console.log(bid); 
+				
+				var bookId = $(this).closest("tr").find(".bid").text();
+				
 				let bookCount = 1;
 				console.log(bookCount);
+				
 				/* 상품정보 */
 				let form_contents = ''; 
-				let bookId_input = "<input name='orders[0].bid' type='hidden' value='" + bid + "'>";
+				
+				let bookId_input = "<input name='orders[0].bid' type='hidden' value='" + bookId + "'>";
 				form_contents += bookId_input;
+				
 				let bookCount_input = "<input name='orders[0].bookCount' type='hidden' value='" + bookCount + "'>";
 				form_contents += bookCount_input;
+				
 				$(".order_form").append(form_contents);	
+				
 				$(".order_form").submit();
+				
 			});
-			
-			
+
 		});
-	</script>
-    
-	<title>사락사락 전체 도서 페이지</title>
+		</script>
+	    
+		<title>사락사락 전체 도서 페이지</title>
 	
 	</head>
 	
@@ -132,7 +134,6 @@
 			<!-- 헤더 영역 시작 -->
 			<%@ include file="../includes/header.jsp" %>
 			<!-- 헤더 영역 끝 -->
-			
 			<!-- 미들 영역 시작 -->
 			<div class="sarakMiddleArea">
 				<!-- 전체도서 목록 영역 -->
@@ -169,11 +170,10 @@
 										</td>
 										<td class="btn-group">
 											<div class="cartbtn">
-												<input type="button" class="cart" name="btn" value="장바구니"></button>
+												<input type="button" class="cart" name="btn" value="장바구니">
 											</div>
 											<div class="buynowbtn">
 												<input type="button" class="buynow" name="btn" value="바로구매">
-												<input type="hidden" class="buynowBid" name="bid" value="${vo.bid}">
 											</div>
 										</td>
 									</tr>
@@ -218,13 +218,12 @@
 						</div>
 					</div>
 				</div>
-				
 			</div>
 			<!-- 미들 영역 끝 -->
-			
 			<!-- footer 영역 시작 -->
 			<%@ include file="../includes/footer.jsp" %>
 			<!-- footer 영역 끝 -->
-			
 		</div>
 		<!-- 전체 페이지 영역 끝 -->
+	</body>
+</html>
