@@ -278,7 +278,7 @@
 <br>
 
 ## 8. 상세 기능 소개 및 화면
-https://docs.google.com/viewer?url=https://github.com/wxv4869/SarakSarak/blob/main/saraksarak_ppt.pdf?raw=True
+https://docs.google.com/viewer?url=https://github.com/oh2976/SarakSarak/blob/main/saraksarak_ppt.pdf?raw=True
 <br>
 
 ## 9. 참고 레퍼런스
